@@ -1,23 +1,28 @@
 <template>
   <div id="app">
-    <img src="./assets/img/logo.png">
-    <router-view></router-view>
+    <el-row class="tac">
+      <el-col :span="3">
+        <navbar></navbar>
+      </el-col>
+      <el-col :span="21">
+        <router-view></router-view>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
+import navbar from './components/Navbar'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {navbar}
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  margin:0;
+  padding:0;
 }
+
 </style>

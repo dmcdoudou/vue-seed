@@ -3,9 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import { Button } from 'element-ui'
+import { Row,Col,Button,Menu,Submenu,MenuItem,MenuItemGroup } from 'element-ui'
 
-Vue.component(Button.name, Button)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Button)
+Vue.use(Menu)
+Vue.use(Submenu)
+Vue.use(MenuItem)
+Vue.use(MenuItemGroup)
 
 Vue.config.productionTip = false
 

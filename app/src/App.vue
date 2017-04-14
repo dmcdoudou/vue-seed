@@ -1,13 +1,9 @@
 <template>
   <div id="app">
-    <el-row class="tac">
-      <el-col :span="3">
-        <navbar></navbar>
-      </el-col>
-      <el-col :span="21">
-        <router-view></router-view>
-      </el-col>
-    </el-row>
+    <navbar></navbar>
+    <div id="con-wrap">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -19,10 +15,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 body {
   margin:0;
   padding:0;
+  #con-wrap {
+    margin-left: 140px;
+    overflow: hidden;
+    padding: 20px;
+  }
 }
 
 </style>

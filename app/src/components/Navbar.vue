@@ -1,14 +1,14 @@
 <template>
   <div id="navbar-wrap">
-    <img src="../assets/img/logo.png" alt="">
-    <el-menu default-active="hello" @open="handleOpen" @close="handleClose" unique-opened="true" router="true">
+    <img src="../assets/img/logo.png" alt="logo" class="animated bounceInDown">
+    <el-menu default-active="hello" @open="handleOpen" @close="handleClose" :unique-opened="isUnique" :router="isRouter">
       <el-menu-item index="hello"><i class="el-icon-menu"></i>欢迎页</el-menu-item>
       <el-submenu index="">
         <template slot="title"><i class="el-icon-message"></i>常用页</template>
           <el-menu-item index="list">列表页</el-menu-item>
           <el-menu-item index="form">表单页</el-menu-item>
       </el-submenu>
-      <el-menu-item index="charts"><i class="el-icon-menu"></i>图表页</el-menu-item>
+      <el-menu-item index="charts"><i class="el-icon-picture"></i>图表页</el-menu-item>
       <el-menu-item index="end"><i class="el-icon-setting"></i>结束页</el-menu-item>
     </el-menu>
   </div>
@@ -19,7 +19,8 @@ export default {
   name: 'navbar',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      isUnique: true,
+      isRouter: true
     }
   },
   methods: {
@@ -33,7 +34,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 #navbar-wrap {
   width: 140px;
@@ -49,5 +49,4 @@ export default {
     margin: 15%;
   }
 }
-
 </style>

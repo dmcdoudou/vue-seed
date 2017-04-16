@@ -1,14 +1,15 @@
 <template>
   <div id="navbar-wrap">
     <img src="../assets/img/logo.png" alt="">
-    <el-menu default-active="2" @open="handleOpen" @close="handleClose">
-      <el-submenu index="1">
-        <template slot="title"><i class="el-icon-message"></i>导航一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
+    <el-menu default-active="hello" @open="handleOpen" @close="handleClose" unique-opened="true" router="true">
+      <el-menu-item index="hello"><i class="el-icon-menu"></i>欢迎页</el-menu-item>
+      <el-submenu index="">
+        <template slot="title"><i class="el-icon-message"></i>常用页</template>
+          <el-menu-item index="list">列表页</el-menu-item>
+          <el-menu-item index="form">表单页</el-menu-item>
       </el-submenu>
-      <el-menu-item index="2"><i class="el-icon-menu"></i>导航二</el-menu-item>
-      <el-menu-item index="3"><i class="el-icon-setting"></i>导航三</el-menu-item>
+      <el-menu-item index="charts"><i class="el-icon-menu"></i>图表页</el-menu-item>
+      <el-menu-item index="end"><i class="el-icon-setting"></i>结束页</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -41,7 +42,7 @@ export default {
   bottom: 0;
   background: #eef6f6;
   overflow: hidden;
-  box-shadow:1px 0px 5px #333;
+  box-shadow:1px 0px 5px #999;
   img {
     width: 70%;
     display: block;

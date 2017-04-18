@@ -1,8 +1,36 @@
-# vue-starter-kit
-a boilerplate for creating a vue project
+# Target
+Developing a SPA with Vue(2.x) Vuex ES6, and practise creating components by myself.
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+## Tech Stack
+* Vue 2.x
+* Vuex 
+* Vue-Router
+* Vue-Resource
+* Vue-cli
+* ES6
+* Element-UI
+* Less
+* Animate.CSS
+* Font-Awesome
+* Echarts 3.x
 
 ## Notes
-
 * [Vue-loader使用指南](http://vue-loader.vuejs.org/en/)
 * [Vue-cli使用指南](http://vuejs-templates.github.io/webpack/)
 * app/static目录下的文件，将原封不动的被复制到dist/static文件夹下

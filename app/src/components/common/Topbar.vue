@@ -1,21 +1,42 @@
 <template>
-  <div id="topbar-wrap">
+  <div id="topbar-wrap" class="animated fadeInDown">
     <el-row>
-      <el-col :span="20">fadf</el-col>
-      <el-col :span="2">云小白</el-col>
-      <el-col :span="2">退出</el-col>
+      <el-col :span="19">这里是可选菜单</el-col>
+      <el-col :span="3"> 您好，{{userName}}</el-col>
+      <el-col :span="2">
+        <a href="">
+          退出 <i class="fa fa-sign-out"></i>
+        </a>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+
+import Mock from 'mockjs'
+Mock.mock(/getUserName/, {
+  name:'@first'
+})
+
 export default {
   name: 'topbar',
   data () {
     return {
+      userName:'游客'
     }
   },
+  created() {
+    this.fetchData()
+  },
   methods: {
+    fetchData () {
+      this.$http.get('getUserName').then(res => {
+        this.userName = res.body.name;
+      }, res => {
+        console.log(res)
+      })
+    }
 
   }
 }
@@ -26,5 +47,9 @@ export default {
   padding: 15px;
   background: #eef6f6;
   overflow: hidden;
+  i {
+    vertical-align: bottom;
+    font-size: 20px;
+  }
 }
 </style>

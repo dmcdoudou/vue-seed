@@ -43,6 +43,7 @@ export default {
   background: #eef6f6;
   overflow: hidden;
   box-shadow:1px 0px 2px #999;
+  z-index: 2;
   img {
     width: 70%;
     display: block;

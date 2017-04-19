@@ -2,7 +2,7 @@
   <div id="topbar-wrap" class="animated fadeInDown">
     <el-row>
       <el-col :span="19">这里是可选菜单</el-col>
-      <el-col :span="3"> 您好，{{userName}}</el-col>
+      <el-col :span="3"> 您好，<span class="name">{{userName}}</span></el-col>
       <el-col :span="2">
         <a href="">
           退出 <i class="fa fa-sign-out"></i>
@@ -47,6 +47,17 @@ export default {
   padding: 15px;
   background: #eef6f6;
   overflow: hidden;
+  .name {
+    color: #1ab394;
+    font-weight: 600;
+  }
+  a {
+    color: #486a68;
+    text-decoration: none;
+    &:hover {
+      color: #ec4758;
+    }
+  }
   i {
     vertical-align: bottom;
     font-size: 20px;

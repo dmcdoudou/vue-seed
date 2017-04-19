@@ -29,6 +29,7 @@ npm run build --report
 * Animate.CSS
 * Font-Awesome
 * Echarts 3.x
+* Mock.JS
 
 ## Notes
 * [Vue-loader使用指南](http://vue-loader.vuejs.org/en/)

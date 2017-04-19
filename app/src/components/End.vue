@@ -1,7 +1,8 @@
 <template>
   <div class="end">
-    <h1>end</h1>
-
+    <div class="endImg animated fadeInUp">
+      <img src="../assets/img/end.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -10,16 +11,18 @@ export default {
   name: 'end',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
   }
 }
 </script>
 
-
 <style scoped lang="less">
-h1, h2 {
-  font-weight: normal;
+.endImg {
+  text-align: center;
+  img {
+    margin-top: 100px;
+    width: 250px;
+  }
 }
 
 </style>

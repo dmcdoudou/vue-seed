@@ -30,7 +30,9 @@ body {
     margin-left: 140px;
     overflow: hidden;
     .con-wrap {
-      padding:20px;
+      padding:15px;
+      background: #f3f3f4;
+      height: 550px;
     }
   }
 }

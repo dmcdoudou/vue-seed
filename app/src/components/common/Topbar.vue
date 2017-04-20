@@ -44,9 +44,9 @@ export default {
 
 <style scoped lang="less">
 #topbar-wrap {
-  padding: 15px;
-  background: #eef6f6;
+  padding: 20px 15px;
   overflow: hidden;
+  border-bottom: 1px solid #e7eaec;
   .name {
     color: #1ab394;
     font-weight: 600;

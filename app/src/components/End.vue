@@ -20,8 +20,8 @@ export default {
 .endImg {
   text-align: center;
   img {
-    margin-top: 100px;
-    width: 250px;
+    margin-top: 130px;
+    width: 160px;
   }
 }
 

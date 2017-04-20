@@ -1,6 +1,6 @@
 <template>
   <div id="navbar-wrap">
-    <img src="../../assets/img/logo.png" alt="logo" class="animated bounceInDown">
+    <img src="../../assets/img/logo.png" alt="logo" >
     <el-menu default-active="hello" @open="handleOpen" @close="handleClose" :unique-opened="isUnique" :router="isRouter">
       <el-menu-item index="hello"><i class="el-icon-menu"></i>欢迎页</el-menu-item>
       <el-submenu index="">
@@ -42,12 +42,16 @@ export default {
   bottom: 0;
   background: #eef6f6;
   overflow: hidden;
-  box-shadow:1px 0px 2px #999;
+  box-shadow:1px 0px 2px #ccc;
   z-index: 2;
   img {
-    width: 70%;
+    width: 52%;
     display: block;
-    margin: 15%;
+    margin: 15% auto;
+    transition: 1s all;
+    &:hover {
+      transform: rotate(360deg);
+    }
   }
 }
 </style>

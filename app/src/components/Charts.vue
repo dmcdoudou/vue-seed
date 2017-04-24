@@ -16,7 +16,7 @@
     <el-row :gutter="20">
       <el-col :span="4">
         <el-card class="box-card">
-          {{'实时温度：' + cityData.wendu + '℃'}}
+          {{'实时温度：' + (cityData.wendu || 'XX') + '℃'}}
         </el-card>
       </el-col>
       <el-col :span="4">
@@ -26,7 +26,7 @@
       </el-col>
       <el-col :span="16">
         <el-card class="box-card">
-          {{cityData.ganmao}}
+          {{cityData.ganmao || '暂无提示'}}
         </el-card>
       </el-col>
     </el-row>
@@ -85,7 +85,7 @@ export default {
               data:['最高气温','最低气温']
           },
           xAxis: {
-              data: []
+              data: ['星期一','星期二','星期三','星期四','星期五']
           },
           yAxis: {
             type: 'value',
@@ -96,11 +96,11 @@ export default {
           series: [{
               name: '最高气温',
               type: 'line',
-              data: []
+              data: [0,0,0,0,0]
           },{
               name: '最低气温',
               type: 'line',
-              data: []
+              data: [0,0,0,0,0]
           }]
       }
     }
@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     getData() {
-      this.$http.jsonp('http://wthrcdn.etouch.cn/weather_mini',{params:{citykey:this.sel}}).then(res => {
+      this.$http.jsonp('https://wthrcdn.etouch.cn/weather_mini',{params:{citykey:this.sel}}).then(res => {
         console.log('http://www.voidcn.com/blog/lgh1992314/article/p-6151991.html')
         console.log('http://www.cnblogs.com/wisewrong/p/6402183.html')
         console.log(res.body)
@@ -121,6 +121,8 @@ export default {
         }
       }, res => {
         console.log(res)
+        this.myChart = echarts.init(document.querySelector('#myChart'))
+        this.myChart.setOption(this.opts)
       })
     },
     renderChart(data) {

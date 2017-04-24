@@ -43,7 +43,7 @@ export default {
         this.userName = res.body.name;
       }, res => {
         console.log(res)
-      })      
+      })
     },
     changeSentence() {
       let sl = this.sentenceArr.length;
@@ -72,6 +72,7 @@ export default {
   padding: 20px 15px;
   overflow: hidden;
   border-bottom: 1px solid #e7eaec;
+  background: #fff;
   .sen {
     color: #486a68;
   }

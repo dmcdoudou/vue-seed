@@ -26,13 +26,12 @@ export default {
 body {
   margin:0;
   padding:0;
+      background: #f3f3f4;
   #right-wrap {
     margin-left: 140px;
     overflow: hidden;
     .con-wrap {
       padding:15px;
-      background: #f3f3f4;
-      height: 550px;
     }
   }
 }

@@ -30,6 +30,7 @@ export default {
   },
   mounted() {
     console.log('mounted 钩子执行...');
+    this.renderLine();
   },
   beforeUpdate () {
     console.log('beforeUpdate 钩子执行...');

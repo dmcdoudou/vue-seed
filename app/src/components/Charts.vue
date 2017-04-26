@@ -37,13 +37,13 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>近五天温度走势</span>
-              <i class="fa fa-exchange ct" @click="ex = !ex"></i>
+              <i class="fa fa-exchange ct" @click="isChart = !isChart"></i>
             </div>
-            <div v-show="ex" class="animated fadeIn">
+            <div v-show="isChart" class="animated fadeIn">
               <!-- 这里是折线图组件 -->
               <line-chart :lineData="lineData"></line-chart>
             </div>
-            <div v-show="!ex" class="animated fadeIn">
+            <div v-show="!isChart" class="animated fadeIn">
               <!-- 这里是表格组件 -->
               <el-table stripe :data="tableData" style="width: 100%">
                 <el-table-column prop="date" label="日期"></el-table-column>
@@ -80,7 +80,7 @@ export default {
         series1:[],
         series2:[]
       },
-      ex: true,
+      isChart: true,
       tableData: []
     }
   },

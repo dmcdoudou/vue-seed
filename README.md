@@ -39,3 +39,8 @@ npm run build --report
 * config/index.js中的build.assetsPublicPath相当于output.publicPath
 * 如果要设置代理，编辑config/index.js中的dev.proxyTable
 * 如果要使用LESS，则首先执行npm i less less-loader --save-dev，然后在style标签中添加lang="less"
+* 绝壁大坑：如果不在模板中绑定父组件中传过来的数据的话，子组件完全不更新
+
+##Articles
+* [中国天气网API接口](http://www.voidcn.com/blog/lgh1992314/article/p-6151991.html)
+* [Vue 爬坑之路（八）—— 使用 Echarts 创建图表](http://www.cnblogs.com/wisewrong/p/6558001.html)

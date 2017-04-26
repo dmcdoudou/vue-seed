@@ -37,10 +37,32 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>近五天温度走势</span>
-              <i class="fa fa-exchange ct"></i>
+              <i class="fa fa-exchange ct" @click="ex = !ex"></i>
             </div>
-            <div class="charts">
-              <div id="myChart" style="width:1160px;height:300px;"></div>
+            <div v-show="ex">
+              <!-- 这里是折线图组件 -->
+              <line-chart :lineData="lineData"></line-chart>
+            </div>
+            <div v-show="!ex">
+              <!-- 这里是表格组件 -->
+              <el-table
+                :data="tableData"
+                style="width: 100%">
+                <el-table-column
+                  prop="date"
+                  label="日期"
+                  width="180">
+                </el-table-column>
+                <el-table-column
+                  prop="high"
+                  label="最高气温"
+                  width="180">
+                </el-table-column>
+                <el-table-column
+                  prop="low"
+                  label="最低气温">
+                </el-table-column>
+              </el-table>
             </div>
           </el-card>
         </el-col>
@@ -51,58 +73,44 @@
 </template>
 
 <script>
-// 引入基本模板
-let echarts = require('echarts/lib/echarts')
-// 引入折线图组件
-require('echarts/lib/chart/line')
-// 引入提示框和图例组件
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/legend')
 // 引入城市列表
 import arr from '../assets/data/citylist.json'
+// 引入自己写的折线图组件
+import lineChart from './common/Line'
 
 export default {
   name: 'charts',
+  components: {
+    'line-chart':lineChart
+  },
   data () {
     return {
       cityData: {},
       options: arr,
       sel: '101010100',
-      opts: {
-          title: { text: '' },
-          grid: {
-              top: '3%',
-              left: '3%',
-              right: '3%',
-              bottom: '12%',
-              containLabel: true
-          },
-          tooltip: {
-            trigger: 'axis'
-          },
-          legend: {
-              bottom: 0,
-              data:['最高气温','最低气温']
-          },
-          xAxis: {
-              data: ['星期一','星期二','星期三','星期四','星期五']
-          },
-          yAxis: {
-            type: 'value',
-            axisLabel: {
-                formatter: '{value} °C'
-            }
-          },
-          series: [{
-              name: '最高气温',
-              type: 'line',
-              data: [0,0,0,0,0]
-          },{
-              name: '最低气温',
-              type: 'line',
-              data: [0,0,0,0,0]
-          }]
-      }
+      lineData: {
+        xAxis:[],
+        series1:[],
+        series2:[]
+      },
+      ex: true,
+      tableData: [{
+        date: '2016-05-02',
+        high: '王小虎',
+        low: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        high: '王小虎',
+        low: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        high: '王小虎',
+        low: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        high: '王小虎',
+        low: '上海市普陀区金沙江路 1516 弄'
+      }]
     }
   },
   mounted() {
@@ -113,7 +121,6 @@ export default {
       this.$http.jsonp('https://wthrcdn.etouch.cn/weather_mini',{params:{citykey:this.sel}}).then(res => {
         console.log('http://www.voidcn.com/blog/lgh1992314/article/p-6151991.html')
         console.log('http://www.cnblogs.com/wisewrong/p/6402183.html')
-        console.log(res.body)
         if (res.body.status === 1000 ) {
           let data = res.body.data;
           this.cityData = data;
@@ -121,21 +128,17 @@ export default {
         }
       }, res => {
         console.log(res)
-        this.myChart = echarts.init(document.querySelector('#myChart'))
-        this.myChart.setOption(this.opts)
       })
     },
     renderChart(data) {
-      this.opts.xAxis.data = [];
-      this.opts.series[0].data = [];
-      this.opts.series[1].data = [];
-      data.forEach(function(v,i) {
-        this.opts.xAxis.data.push(v.date);
-        this.opts.series[0].data.push(v.high.match(/\d/g).join(''));
-        this.opts.series[1].data.push(v.low.match(/\d/g).join(''));
-      }.bind(this))
-    this.myChart = echarts.init(document.querySelector('#myChart'))
-    this.myChart.setOption(this.opts)
+      this.lineData.xAxis = [];
+      this.lineData.series1 = [];
+      this.lineData.series2 = [];
+      data.forEach((v,i) => {
+        this.lineData.xAxis.push(v.date);
+        this.lineData.series1.push(v.high.match(/\d/g).join(''));
+        this.lineData.series2.push(v.low.match(/\d/g).join(''));
+      })
     }
   }
 }

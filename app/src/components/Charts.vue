@@ -39,29 +39,16 @@
               <span>近五天温度走势</span>
               <i class="fa fa-exchange ct" @click="ex = !ex"></i>
             </div>
-            <div v-show="ex">
+            <div v-show="ex" class="animated fadeIn">
               <!-- 这里是折线图组件 -->
               <line-chart :lineData="lineData"></line-chart>
             </div>
-            <div v-show="!ex">
+            <div v-show="!ex" class="animated fadeIn">
               <!-- 这里是表格组件 -->
-              <el-table
-                :data="tableData"
-                style="width: 100%">
-                <el-table-column
-                  prop="date"
-                  label="日期"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="high"
-                  label="最高气温"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="low"
-                  label="最低气温">
-                </el-table-column>
+              <el-table stripe :data="tableData" style="width: 100%">
+                <el-table-column prop="date" label="日期"></el-table-column>
+                <el-table-column prop="high" label="最高气温（℃）"></el-table-column>
+                <el-table-column prop="low" label="最低气温（℃）"></el-table-column>
               </el-table>
             </div>
           </el-card>
@@ -94,23 +81,7 @@ export default {
         series2:[]
       },
       ex: true,
-      tableData: [{
-        date: '2016-05-02',
-        high: '王小虎',
-        low: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        high: '王小虎',
-        low: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        high: '王小虎',
-        low: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        high: '王小虎',
-        low: '上海市普陀区金沙江路 1516 弄'
-      }]
+      tableData: []
     }
   },
   mounted() {
@@ -119,12 +90,11 @@ export default {
   methods: {
     getData() {
       this.$http.jsonp('https://wthrcdn.etouch.cn/weather_mini',{params:{citykey:this.sel}}).then(res => {
-        console.log('http://www.voidcn.com/blog/lgh1992314/article/p-6151991.html')
-        console.log('http://www.cnblogs.com/wisewrong/p/6402183.html')
         if (res.body.status === 1000 ) {
           let data = res.body.data;
           this.cityData = data;
           this.renderChart(data.forecast);
+          this.renderTable(data.forecast);
         }
       }, res => {
         console.log(res)
@@ -138,6 +108,17 @@ export default {
         this.lineData.xAxis.push(v.date);
         this.lineData.series1.push(v.high.match(/\d/g).join(''));
         this.lineData.series2.push(v.low.match(/\d/g).join(''));
+      })
+    },
+    renderTable(data) {
+      this.tableData = [];
+      data.forEach((v,i) => {
+        var obj = {
+          date: v.date,
+          high:v.high.match(/\d/g).join(''),
+          low:v.low.match(/\d/g).join('')
+        };
+        this.tableData.push(obj);
       })
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="end">
     <div class="endImg animated fadeInUp">
-      <img src="../assets/img/end.png" alt="">
+      <img src="../assets/img/end.png" title="F12">
     </div>
   </div>
 </template>

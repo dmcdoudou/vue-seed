@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     getData() {
-      this.$http.jsonp('https://wthrcdn.etouch.cn/weather_mini',{params:{citykey:this.sel}}).then(res => {
+      this.$http.jsonp('http://wthrcdn.etouch.cn/weather_mini',{params:{citykey:this.sel}}).then(res => {
         if (res.body.status === 1000 ) {
           let data = res.body.data;
           this.cityData = data;

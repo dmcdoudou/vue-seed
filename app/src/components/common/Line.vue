@@ -22,7 +22,7 @@ export default {
   beforeCreate () {
     console.log('beforeCreate 钩子执行...');
   },
-  cteated () {
+  created () {
     console.log('cteated 钩子执行...');
   },
   beforeMount () {

@@ -9,9 +9,8 @@
 <script>
 export default {
   name: 'end',
-  data () {
-    return {
-    }
+  created () {
+    console.info('嗨，如果你发现了我，说明我们很有缘哦，可以加我微信：1105843831');
   }
 }
 </script>

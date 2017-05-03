@@ -4,7 +4,7 @@
       <h1 class="animated fadeIn">Hi! I'm <span class="green">Jason</span>Bai</h1>
       <h2 class="animated flipInX">front-end developer & photographer, welcome to my world.</h2>
     </div>
-    <video autoplay loop id="vbg">
+    <video autoplay loop id="vbg" poster="../assets/img/subway.jpg">
       <source src="../../static/video/subway.mp4" type="video/mp4">
     </video>
   </div>
@@ -48,8 +48,9 @@ export default {
     right: 0;
     top: 62px;
     left: 140px;
+    width: 90%;
     z-index: -100;
-    background: url(../assets/img/end.png) no-repeat;
+    background: url(../assets/img/subway.jpg) no-repeat;
     background-size: cover;
     // 以下是模糊滤镜效果
     -webkit-filter: grayscale(100%);

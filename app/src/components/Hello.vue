@@ -12,12 +12,7 @@
 
 <script>
 export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: '待开发'
-    }
-  }
+  name: 'hello'
 }
 </script>
 

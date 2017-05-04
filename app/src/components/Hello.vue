@@ -4,7 +4,7 @@
       <h1 class="animated fadeIn">Hi! I'm <span class="green">Jason</span>Bai</h1>
       <h2 class="animated flipInX">front-end developer & photographer, welcome to my world.</h2>
     </div>
-    <video autoplay loop id="vbg" poster="../assets/img/subway.jpg">
+    <video autoplay loop id="vbg">
       <source src="../../static/video/subway.mp4" type="video/mp4">
     </video>
   </div>

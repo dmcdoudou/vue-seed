@@ -1,25 +1,29 @@
 <template>
-  <div class="list">
-    <h1>list</h1>
-
-  </div>
+    <div class="list">
+        <el-row :gutter="20" type="flex" justify="center">
+            <el-col :span="12">
+                <pie tl="月收入" rootid="income"></pie>
+            </el-col>
+            <el-col :span="12">
+                <pie tl="月支出" rootid="outcome"></pie>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="24">比对信息</el-col>
+        </el-row>
+    </div>
 </template>
-
 <script>
+import pie from './common/Pie';
 export default {
-  name: 'list',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+    name: 'list',
+    components: {
+        pie: pie
+    },
+    data() {
+        return {}
     }
-  }
 }
 </script>
-
-
 <style scoped lang="less">
-h1, h2 {
-  font-weight: normal;
-}
-
 </style>

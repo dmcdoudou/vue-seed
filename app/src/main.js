@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueResource from 'vue-resource'  //填坑说明：用require的话，你会死的很惨
-import { Row,Col,Button,Menu,Submenu,MenuItem,MenuItemGroup,Message,Select,Option,Card,Table,TableColumn } from 'element-ui'
+import VueResource from 'vue-resource' //填坑说明：用require的话，你会死的很惨
+import { Row, Col, Button, Menu, Submenu, MenuItem, MenuItemGroup, Message, Select, Option, Card, Table, TableColumn, Input, InputNumber } from 'element-ui'
 
 // 引入font图标
 import 'font-awesome/less/font-awesome.less'
@@ -23,14 +23,16 @@ Vue.use(Option)
 Vue.use(Card)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Input)
+Vue.use(InputNumber)
 Vue.prototype.$message = Message
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
+    el: '#app',
+    router,
+    template: '<App/>',
+    components: { App }
 })

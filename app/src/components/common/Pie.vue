@@ -2,14 +2,17 @@
     <div class="pie-wrap">
         <h1>{{tl}}</h1>
         <el-row :gutter="20" type="flex" justify="center">
-            <el-col :span="10">
+            <el-col :span="8">
                 <el-input placeholder="项目" v-model="item.name"></el-input>
             </el-col>
             <el-col :span="8">
                 <el-input-number :min="0" :max="100000000" v-model="item.value"></el-input-number>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="3">
                 <el-button @click="add">添加</el-button>
+            </el-col>
+            <el-col :span="2">
+                <el-button @click="clear">清空</el-button>
             </el-col>
         </el-row type="flex" justify="center">
         <div :id="rootid" style="width:560px;height:260px;" :nomeaning="pieData" ref="pieroot"></div>
@@ -30,8 +33,8 @@ export default {
     data() {
         return {
             item: {
-                name:'',
-                value:0
+                name: '',
+                value: 0
             },
             items: []
         }
@@ -47,15 +50,14 @@ export default {
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
                 series: [{
-                    name: '访问来源',
+                    name: this.tl,
                     type: 'pie',
                     center: ['50%', '50%'],
                     data: this.items,
-                    itemStyle: {
-                        emphasis: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: "{b}({d}%)"
                         }
                     }
                 }]
@@ -63,15 +65,22 @@ export default {
             this.myChart = echarts.init(this.$refs.pieroot)
             this.myChart.setOption(opts)
         },
-        add(v) {
+        add() {
             let one = JSON.parse(JSON.stringify(this.item))
             this.items.push(one);
+            this.renderPie();
+        },
+        clear() {
+            this.items = [];
+            this.item = {
+                name: '',
+                value: 0
+            }
             this.renderPie();
         }
     }
 }
 </script>
-
 <style lang="less" scoped>
 h1 {
     text-align: center;

@@ -22,8 +22,8 @@
         <div class="bottom">
             <el-table :data="tableData" style="width: 100%" stripe>
                 <el-table-column prop="id" label="序号" width="100px"></el-table-column>
-                <el-table-column prop="url" label="表达式" width="400px"></el-table-column>
-                <el-table-column prop="urltype" label="表达式类型"></el-table-column>
+                <el-table-column prop="key" label="表达式" width="400px"></el-table-column>
+                <el-table-column prop="parser" label="表达式类型"></el-table-column>
                 <el-table-column prop="pageid" label="模板ID"></el-table-column>
                 <el-table-column prop="type" label="爬虫类型"></el-table-column>
                 <el-table-column prop="status" label="种子状态"></el-table-column>
@@ -59,12 +59,11 @@ if (debug) {
         "status": true,
         "data|10": [{
             id: '@integer(1,9)',
-            url: '@url',
-            urltype: '@integer(1,9)',
+            key: '@url',
+            parser: '@integer(1,9)',
             pageid: '@integer(1,9)',
             type: '@integer(1,9)',
-            typename: '@first',
-            status: '@integer(1,9)'
+            'status|1': [0,1]
         }]
     })
 }
@@ -106,7 +105,6 @@ export default {
         },
         handleEdit(index, row) {
             this.$router.push({ path: 'handleSeed', query: { type: 'edit', data: JSON.stringify(row) }})
-            console.log(index, row);
         },
 
         handleSizeChange(val) {

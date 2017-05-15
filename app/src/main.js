@@ -24,7 +24,8 @@ import {
     Breadcrumb,
     BreadcrumbItem,
     Form,
-    FormItem
+    FormItem,
+    Switch
 } from 'element-ui'
 
 // 引入font图标
@@ -51,6 +52,7 @@ Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Form)
 Vue.use(FormItem)
+Vue.use(Switch)
 Vue.prototype.$message = Message
 
 Vue.config.productionTip = false

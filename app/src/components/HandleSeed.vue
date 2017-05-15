@@ -7,35 +7,32 @@
         <div class="form-wrap">
             <el-form ref="form" :model="form" label-width="120px">
                 <el-form-item label="序号">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.id" :disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="种子解析类型">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.parser"></el-input>
                 </el-form-item>
                 <el-form-item label="种子表达式">
-                    <el-input v-model="form.name"></el-input>
+                    <el-input v-model="form.key"></el-input>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-select v-model="form.type" placeholder="请选择爬虫类型">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="种子状态">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
+                    <el-switch v-model="form.status" on-text="ON" off-text="OFF"></el-switch>
                 </el-form-item>
                 <el-form-item label="关联模板">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-select v-model="form.pageid" placeholder="请选择活动区域">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                    <el-button>取消</el-button>
+                    <el-button type="primary" @click="onSubmit">提交</el-button>
+                    <el-button @click="goBack">取消</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -61,21 +58,27 @@ export default {
     data() {
         return {
             form: {
-                name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
+                id: '',
+                key: '',
+                parser: '',
+                pageid: '',
+                type: '',
+                status: 1,
             }
         }
     },
-    created() {},
+    created() {
+        let data = this.$route.query.data;
+        if (data) {
+            this.form = JSON.parse(data);
+        }
+    },
     methods: {
         onSubmit() {
             console.log('submit!');
+        },
+        goBack() {
+            this.$router.push('seed')
         }
     }
 }

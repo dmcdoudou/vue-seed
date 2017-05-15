@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Seed from '@/components/Seed'
+import HandleSeed from '@/components/HandleSeed'
 import Template from '@/components/Template'
 import Link from '@/components/Link'
 import Form from '@/components/Form'
@@ -17,6 +18,10 @@ export default new Router({
         path: '/seed',
         name: 'Seed',
         component: Seed
+    }, {
+        path: '/handleSeed',
+        name: 'HandleSeed',
+        component: HandleSeed
     }, {
         path: '/template',
         name: 'Template',

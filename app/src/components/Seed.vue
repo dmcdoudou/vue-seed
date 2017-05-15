@@ -15,7 +15,7 @@
                     <el-button @click="goSearch"><i class="el-icon-search"></i> 查询</el-button>
                 </el-col>
                 <el-col :span="6" class="add-btn">
-                    <el-button type="primary"><i class="el-icon-plus"></i> 新增种子</el-button>
+                     <router-link :to="{ path: 'handleSeed', query: { type: 'add' }}"><el-button type="primary"><i class="el-icon-plus"></i> 新增种子</el-button></router-link>
                 </el-col>
             </el-row>
         </div>
@@ -105,11 +105,10 @@ export default {
             })
         },
         handleEdit(index, row) {
+            this.$router.push({ path: 'handleSeed', query: { type: 'edit', data: JSON.stringify(row) }})
             console.log(index, row);
         },
-        handleDelete(index, row) {
-            console.log(index, row);
-        },
+
         handleSizeChange(val) {
             console.log(`每页 ${val} 条`);
         },
@@ -128,6 +127,10 @@ export default {
     }
     .add-btn {
         text-align: right;
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
     }
 }
 

@@ -5,10 +5,12 @@
   ],
   "plugins": [
     "transform-runtime",
-    ["component",[{
-      "libraryName": "element-ui",
-      "styleLibraryName": "~src/assets/css/theme-custom"
-    }]]
+    ["component", [
+        {
+          "libraryName": "element-ui",
+          "styleLibraryName": "theme-default"
+        }
+    ]]
   ],
   "comments": false,
   "env": {

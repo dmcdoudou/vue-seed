@@ -1,5 +1,5 @@
 # Target
-Developing a SPA with Vue(2.x) Vuex ES6, and practise creating components by myself.
+Developing a SPA with Vue(2.x) ES6.
 
 ## Build Setup
 
@@ -19,7 +19,6 @@ npm run build --report
 
 ## Tech Stack
 * Vue 2.x
-* Vuex 
 * Vue-Router
 * Vue-Resource
 * Vue-cli

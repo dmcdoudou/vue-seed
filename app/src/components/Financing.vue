@@ -8,9 +8,6 @@
                 <pie tl="月支出" rootid="outcome"></pie>
             </el-col>
         </el-row>
-        <el-row>
-            <el-col :span="24">比对信息</el-col>
-        </el-row>
     </div>
 </template>
 <script>

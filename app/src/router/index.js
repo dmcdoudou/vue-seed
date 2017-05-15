@@ -1,31 +1,41 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import List from '@/components/List'
-import Charts from '@/components/Charts'
-import End from '@/components/End'
+import Seed from '@/components/Seed'
+import Template from '@/components/Template'
+import Link from '@/components/Link'
+import Form from '@/components/Form'
+import Weather from '@/components/Weather'
+import Financing from '@/components/Financing'
 
 Vue.use(Router)
 
 export default new Router({
     routes: [{
         path: '/',
-        redirect: '/hello'
+        redirect: '/seed'
     }, {
-        path: '/hello',
-        name: 'Hello',
-        component: Hello
+        path: '/seed',
+        name: 'Seed',
+        component: Seed
     }, {
-        path: '/list',
-        name: 'List',
-        component: List
+        path: '/template',
+        name: 'Template',
+        component: Template
     }, {
-        path: '/charts',
-        name: 'Charts',
-        component: Charts
+        path: '/link',
+        name: 'Link',
+        component: Link
     }, {
-        path: '/end',
-        name: 'End',
-        component: End
+        path: '/form',
+        name: 'Form',
+        component: Form
+    }, {
+        path: '/weather',
+        name: 'Weather',
+        component: Weather
+    }, {
+        path: '/financing',
+        name: 'Financing',
+        component: Financing
     }]
 })

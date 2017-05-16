@@ -75,11 +75,25 @@ export default {
                 series: [{
                     name: '最高气温',
                     type: 'line',
-                    data: data.series1.length === 0 ? [0, 0, 0, 0, 0] : data.series1
+                    data: data.series1.length === 0 ? [0, 0, 0, 0, 0] : data.series1,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{c}℃'
+                        }
+                    }
                 }, {
                     name: '最低气温',
                     type: 'line',
-                    data: data.series2.length === 0 ? [0, 0, 0, 0, 0] : data.series2
+                    data: data.series2.length === 0 ? [0, 0, 0, 0, 0] : data.series2,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top',
+                            formatter: '{c}℃'
+                        }
+                    }
                 }]
             }
             this.myChart = echarts.init(document.querySelector('#myChart'))

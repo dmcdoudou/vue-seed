@@ -5,7 +5,7 @@
                 Spider Management
             </el-col>
             <el-col :span="14" :offset="2" class="sen">
-                <el-menu theme="dark" default-active="seed" @open="handleOpen" @close="handleClose" :unique-opened="isUnique" :router="isRouter" mode="horizontal">
+                <el-menu theme="dark" :default-active="nowPath" @select="handleSelect" :unique-opened="isUnique" :router="isRouter" mode="horizontal">
                     <el-menu-item index="seed">种子管理</el-menu-item>
                     <el-menu-item index="template">模板管理</el-menu-item>
                     <el-menu-item index="link">链接管理</el-menu-item>
@@ -36,7 +36,8 @@ export default {
         return {
             userName: '董事长',
             isUnique: true,
-            isRouter: true
+            isRouter: true,
+            nowPath: localStorage.nowPath || 'seed'
         }
     },
     created() {
@@ -44,11 +45,8 @@ export default {
         // this.fetchData();
     },
     methods: {
-        handleOpen(key, keyPath) {
-            // console.log(key, keyPath);
-        },
-        handleClose(key, keyPath) {
-            // console.log(key, keyPath);
+        handleSelect(key, keyPath) {
+            localStorage.nowPath = key;
         },
         fetchData() {
             this.$http.get('getUserName').then(res => {

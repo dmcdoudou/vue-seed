@@ -58,7 +58,7 @@ if (debug) {
         "msg": '',
         "status": true,
         "data|10": [{
-            id: '@integer(1,9)',
+            id:'@integer(1,9)',
             key: '@url',
             parser: '@integer(1,9)',
             pageid: '@integer(1,9)',
@@ -76,7 +76,7 @@ export default {
             value: '',
             keywords: '',
             tableData: [],
-            currentPage: 5
+            currentPage: 1
         }
     },
     created() {

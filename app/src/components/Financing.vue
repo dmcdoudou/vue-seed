@@ -8,14 +8,21 @@
                 <pie tl="月支出" rootid="outcome"></pie>
             </el-col>
         </el-row>
+        <el-row>
+            <el-col :span="24">
+                <bar></bar>
+            </el-col>
+        </el-row>
     </div>
 </template>
 <script>
 import pie from './common/Pie';
+import bar from './common/Bar';
 export default {
     name: 'list',
     components: {
-        pie: pie
+        pie: pie,
+        bar: bar
     },
     data() {
         return {}

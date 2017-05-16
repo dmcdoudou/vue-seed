@@ -46,9 +46,6 @@ export default {
         renderLine() {
             let data = this.lineData;
             let opts = {
-                title: {
-                    text: ''
-                },
                 grid: {
                     top: '3%',
                     left: '3%',

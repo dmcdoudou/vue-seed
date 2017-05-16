@@ -85,5 +85,6 @@ export default {
 h1 {
     text-align: center;
     color: #555;
+    margin-top: 0
 }
 </style>

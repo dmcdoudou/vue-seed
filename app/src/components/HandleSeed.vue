@@ -16,7 +16,7 @@
                     <el-switch v-model="form.status" on-text="ON" off-text="OFF"></el-switch>
                 </el-form-item>
                 <el-form-item label="种子解析类型">
-                    <el-select v-model="form.parser" placeholder="请选择活动区域">
+                    <el-select v-model="form.parser" placeholder="请选择种子解析类型">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
@@ -28,7 +28,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="关联模板">
-                    <el-select v-model="form.pageid" placeholder="请选择活动区域">
+                    <el-select v-model="form.pageid" placeholder="请选择关联模板">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>

@@ -1,7 +1,7 @@
 <template>
     <div class="charts">
         <!-- 绝壁大坑：如果不在模板中绑定父组件中传过来的数据的话，子组件完全不更新 -->
-        <div id="myChart" style="width:1160px;height:300px;" :nomeaning="lineData.xAxis"></div>
+        <div id="myChart" style="width:1300px;height:300px;" :nomeaning="lineData.xAxis"></div>
     </div>
 </template>
 <script>

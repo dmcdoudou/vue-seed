@@ -18,7 +18,7 @@
                 您好，<span class="name">{{userName}}</span>
             </el-col>
             <el-col :span="2">
-                <a href="" @click.prevent="open">
+                <a href="" @click.prevent="open" class="logout">
                     退出 <i class="fa fa-sign-out"></i>
                 </a>
             </el-col>
@@ -34,13 +34,14 @@ export default {
     name: 'topbar',
     data() {
         return {
-            userName: '超级管理员',
+            userName: '董事长',
             isUnique: true,
             isRouter: true
         }
     },
     created() {
-        this.fetchData();
+        // 获取用户数据，暂时注释
+        // this.fetchData();
     },
     methods: {
         handleOpen(key, keyPath) {
@@ -99,6 +100,12 @@ export default {
     i {
         vertical-align: middle;
         font-size: 20px;
+    }
+    .logout {
+        color: #bfcbd9;
+        &:hover {
+            color: #fff;
+        }
     }
 }
 </style>

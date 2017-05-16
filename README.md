@@ -5,7 +5,7 @@ Developing a SPA with Vue(2.x) ES6.
 
 ``` bash
 # install dependencies
-npm install
+yarn install
 
 # serve with hot reload at localhost:8080
 npm run dev
@@ -29,6 +29,7 @@ npm run build --report
 * Font-Awesome
 * Echarts 3.x
 * Mock.JS
+* Yarn
 
 ## Notes
 * [Vue-loader使用指南](http://vue-loader.vuejs.org/en/)
@@ -40,6 +41,7 @@ npm run build --report
 * 如果要使用LESS，则首先执行npm i less less-loader --save-dev，然后在style标签中添加lang="less"
 * 绝壁大坑：如果不在模板中绑定父组件中传过来的数据的话，子组件完全不更新
 * 又一个坑：页面内导航用: this.$router.push() 获取路由中的数据：this.$route.query
+* 安装或删除模块请使用Yarn命令 ！！！！！！！！
 
 ## Articles
 * [中国天气网API接口](http://www.voidcn.com/blog/lgh1992314/article/p-6151991.html)

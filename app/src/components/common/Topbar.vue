@@ -14,7 +14,7 @@
                     <el-menu-item index="financing">免费理财</el-menu-item>
                 </el-menu>
             </el-col>
-            <el-col :span="3" class="animated fadeInLeft">
+            <el-col :span="3" class="animated fadeInDown">
                 您好，<span class="name">{{userName}}</span>
             </el-col>
             <el-col :span="2">

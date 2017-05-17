@@ -2,20 +2,20 @@
     <div id="topbar-wrap">
         <el-row>
             <el-col :span="3" class="logo">
-                Spider Management
+                网络信息采集系统
             </el-col>
-            <el-col :span="14" :offset="2" class="sen">
+            <el-col :span="15" :offset="1" class="sen">
                 <el-menu theme="dark" :default-active="nowPath" @select="handleSelect" :unique-opened="isUnique" :router="isRouter" mode="horizontal">
                     <el-menu-item index="seed">种子管理</el-menu-item>
                     <el-menu-item index="template">模板管理</el-menu-item>
                     <el-menu-item index="link">链接管理</el-menu-item>
                     <el-menu-item index="form">表单管理</el-menu-item>
-                    <el-menu-item index="weather">免费天气</el-menu-item>
-                    <el-menu-item index="financing">免费理财</el-menu-item>
+                    <el-menu-item index="weather">天气预报</el-menu-item>
+                    <el-menu-item index="financing">个人理财</el-menu-item>
                 </el-menu>
             </el-col>
             <el-col :span="3" class="animated fadeInDown">
-                您好，<span class="name">{{userName}}</span>
+                您好, <span class="name">{{userName}}</span>
             </el-col>
             <el-col :span="2">
                 <a href="" @click.prevent="open" class="logout">

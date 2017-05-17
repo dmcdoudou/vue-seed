@@ -15,7 +15,9 @@
                     <el-button @click="goSearch"><i class="el-icon-search"></i> 查询</el-button>
                 </el-col>
                 <el-col :span="6" class="add-btn">
-                     <router-link :to="{ path: 'handleSeed', query: { type: 'add' }}"><el-button type="primary"><i class="el-icon-plus"></i> 新增种子</el-button></router-link>
+                    <router-link :to="{ path: 'handleSeed', query: { type: 'add' }}">
+                        <el-button type="primary"><i class="el-icon-plus"></i> 新增种子</el-button>
+                    </router-link>
                 </el-col>
             </el-row>
         </div>
@@ -34,7 +36,7 @@
                 </el-table-column>
             </el-table>
             <div class="fen">
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="100" layout="prev, pager, next, jumper" :total="1000">
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="400">
                 </el-pagination>
             </div>
         </div>
@@ -58,12 +60,12 @@ if (debug) {
         "msg": '',
         "status": true,
         "data|10": [{
-            id:'@integer(1,9)',
+            id: '@integer(1,9)',
             key: '@url',
             parser: '@integer(1,9)',
             pageid: '@integer(1,9)',
             type: '@integer(1,9)',
-            'status|1': [0,1]
+            'status|1': [0, 1]
         }]
     })
 }
@@ -104,7 +106,13 @@ export default {
             })
         },
         handleEdit(index, row) {
-            this.$router.push({ path: 'handleSeed', query: { type: 'edit', data: JSON.stringify(row) }})
+            this.$router.push({
+                path: 'handleSeed',
+                query: {
+                    type: 'edit',
+                    data: JSON.stringify(row)
+                }
+            })
         },
 
         handleSizeChange(val) {

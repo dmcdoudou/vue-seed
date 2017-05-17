@@ -15,7 +15,7 @@
                 <el-button @click="clear">清空</el-button>
             </el-col>
         </el-row type="flex" justify="center">
-        <div :id="rootid" style="width:560px;height:260px;" :nomeaning="pieData" ref="pieroot"></div>
+        <div class="pie" :id="rootid" style="width:560px;height:260px;" :nomeaning="pieData" ref="pieroot"></div>
     </div>
 </template>
 <script>
@@ -86,5 +86,8 @@ h1 {
     text-align: center;
     color: #555;
     margin-top: 0
+}
+.pie {
+    margin-top: 50px;
 }
 </style>

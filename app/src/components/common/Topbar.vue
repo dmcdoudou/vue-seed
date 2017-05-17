@@ -5,13 +5,13 @@
                 网络信息采集系统
             </el-col>
             <el-col :span="15" :offset="1" class="sen">
-                <el-menu theme="dark" :default-active="nowPath" @select="handleSelect" :unique-opened="isUnique" :router="isRouter" mode="horizontal">
-                    <el-menu-item index="seed">种子管理</el-menu-item>
-                    <el-menu-item index="template">模板管理</el-menu-item>
-                    <el-menu-item index="link">链接管理</el-menu-item>
-                    <el-menu-item index="form">表单管理</el-menu-item>
-                    <el-menu-item index="weather">天气预报</el-menu-item>
-                    <el-menu-item index="financing">个人理财</el-menu-item>
+                <el-menu theme="dark" :default-active="nowPath" :unique-opened="isUnique" :router="isRouter" mode="horizontal">
+                    <el-menu-item index="/seed">种子管理</el-menu-item>
+                    <el-menu-item index="/template">模板管理</el-menu-item>
+                    <el-menu-item index="/link">链接管理</el-menu-item>
+                    <el-menu-item index="/form">表单管理</el-menu-item>
+                    <el-menu-item index="/weather">天气预报</el-menu-item>
+                    <el-menu-item index="/financing">个人理财</el-menu-item>
                 </el-menu>
             </el-col>
             <el-col :span="3" class="animated fadeInDown">
@@ -28,7 +28,18 @@
 <script>
 import Mock from 'mockjs'
 Mock.mock(/getUserName/, {
-    name: '@first'
+    // data:[{
+    //     mid:99,
+    //     pid:2,
+    //     name:'aaa',
+    //     children:[{
+    //         cid:33,
+    //         name:'bbb'
+    //     },{
+    //         cid:44,
+    //         name:'ccc'
+    //     }]
+    // }]
 })
 export default {
     name: 'topbar',
@@ -37,7 +48,7 @@ export default {
             userName: '董事长',
             isUnique: true,
             isRouter: true,
-            nowPath: localStorage.nowPath || 'seed'
+            nowPath: this.$route.path
         }
     },
     created() {
@@ -45,9 +56,6 @@ export default {
         // this.fetchData();
     },
     methods: {
-        handleSelect(key, keyPath) {
-            localStorage.nowPath = key;
-        },
         fetchData() {
             this.$http.get('getUserName').then(res => {
                 this.userName = res.body.name;

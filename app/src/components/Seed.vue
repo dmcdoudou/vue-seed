@@ -3,7 +3,7 @@
         <div class="top">
             <el-row :gutter="20">
                 <el-col :span="6">
-                    <el-select v-model="value" placeholder="请选择爬虫类型">
+                    <el-select v-model="SelVal" placeholder="请选择爬虫类型">
                         <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
                         </el-option>
                     </el-select>
@@ -21,8 +21,8 @@
                 </el-col>
             </el-row>
         </div>
-        <div class="bottom">
-            <el-table :data="tableData" style="width: 100%" stripe>
+        <div class="bottom" v-loading.body="loading" element-loading-text="拼命加载中">
+            <el-table :data="tableData" style="width: 100%" stripe >
                 <el-table-column prop="id" label="序号" width="100px"></el-table-column>
                 <el-table-column prop="key" label="表达式" width="400px"></el-table-column>
                 <el-table-column prop="parser" label="表达式类型"></el-table-column>
@@ -36,7 +36,7 @@
                 </el-table-column>
             </el-table>
             <div class="fen">
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="400">
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalNum">
                 </el-pagination>
             </div>
         </div>
@@ -59,14 +59,19 @@ if (debug) {
         "code": 0,
         "msg": '',
         "status": true,
-        "data|10": [{
-            id: '@integer(1,9)',
-            key: '@url',
-            parser: '@integer(1,9)',
-            pageid: '@integer(1,9)',
-            type: '@integer(1,9)',
-            'status|1': [0, 1]
-        }]
+        "data": {
+            'table|10': [{
+                id: '@integer(1,9)',
+                key: '@url',
+                parser: '@integer(1,9)',
+                pageid: '@integer(1,9)',
+                type: '@integer(1,9)',
+                'status|1': [0,1]
+            }],
+            total: '@integer(22,186)',
+            current_page: 1,
+            per_page: 10
+        }
     })
 }
 
@@ -75,10 +80,13 @@ export default {
     data() {
         return {
             options: [],
-            value: '',
+            SelVal: '',
             keywords: '',
             tableData: [],
-            currentPage: 1
+            currentPage: 1,
+            pageSize: 10,
+            totalNum: 0,
+            loading: true
         }
     },
     created() {
@@ -94,13 +102,20 @@ export default {
             })
         },
         goSearch() {
+            this.loading = true;
             this.$http.post('gettabledata', {
                 param: {
-                    type: this.value,
-                    keywords: this.keywords
+                    type: this.SelVal,
+                    keywords: this.keywords,
+                    page_index: this.currentPage,
+                    page_size: this.pageSize
                 }
             }).then(res => {
-                this.tableData = res.body.data;
+                this.tableData = res.body.data.table;
+                this.currentPage = res.body.data.current_page;
+                this.pageSize = res.body.data.per_page;
+                this.totalNum = res.body.data.total;
+                this.loading = false;
             }, res => {
                 console.log(res)
             })
@@ -116,10 +131,12 @@ export default {
         },
 
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            this.pageSize = val;
+            this.goSearch();
         },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            this.currentPage = val;
+            this.goSearch();
         }
 
     }

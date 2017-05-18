@@ -26,21 +26,6 @@
     </div>
 </template>
 <script>
-import Mock from 'mockjs'
-Mock.mock(/getUserName/, {
-    // data:[{
-    //     mid:99,
-    //     pid:2,
-    //     name:'aaa',
-    //     children:[{
-    //         cid:33,
-    //         name:'bbb'
-    //     },{
-    //         cid:44,
-    //         name:'ccc'
-    //     }]
-    // }]
-})
 export default {
     name: 'topbar',
     data() {
@@ -51,18 +36,7 @@ export default {
             nowPath: this.$route.path
         }
     },
-    created() {
-        // 获取用户数据，暂时注释
-        // this.fetchData();
-    },
     methods: {
-        fetchData() {
-            this.$http.get('getUserName').then(res => {
-                this.userName = res.body.name;
-            }, res => {
-                console.log(res)
-            })
-        },
         open() {
             this.$message({
                 showClose: true,
@@ -70,7 +44,6 @@ export default {
                 type: 'warning'
             });
         }
-
     }
 }
 </script>

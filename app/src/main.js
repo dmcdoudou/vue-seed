@@ -9,9 +9,7 @@ import {
     Col,
     Button,
     Menu,
-    Submenu,
     MenuItem,
-    MenuItemGroup,
     Message,
     Select,
     Option,
@@ -25,7 +23,8 @@ import {
     BreadcrumbItem,
     Form,
     FormItem,
-    Switch
+    Switch,
+    Loading
 } from 'element-ui'
 
 // 引入font图标
@@ -37,9 +36,7 @@ Vue.use(Row)
 Vue.use(Col)
 Vue.use(Button)
 Vue.use(Menu)
-Vue.use(Submenu)
 Vue.use(MenuItem)
-Vue.use(MenuItemGroup)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Card)
@@ -53,6 +50,9 @@ Vue.use(BreadcrumbItem)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Switch)
+Vue.use(Loading.directive)
+
+Vue.prototype.$loading = Loading.service
 Vue.prototype.$message = Message
 
 Vue.config.productionTip = false

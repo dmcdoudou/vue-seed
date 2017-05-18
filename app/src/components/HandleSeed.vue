@@ -66,14 +66,17 @@ export default {
                 parser: '',
                 pageid: '',
                 type: '',
-                status: 1,
+                status: true,
             }
         }
     },
     created() {
         let data = this.$route.query.data;
         if (data) {
-            this.form = JSON.parse(data);
+            let pData = JSON.parse(data);
+            // 这是一个坑，文档里说开关的Model的类型只能是布尔型
+            pData.status = pData.status === 1 ? true : false
+            this.form = pData;
         }
     },
     methods: {

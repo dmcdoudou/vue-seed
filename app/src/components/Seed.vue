@@ -4,7 +4,7 @@
             <el-row :gutter="20">
                 <el-col :span="6">
                     <el-select v-model="SelVal" placeholder="请选择爬虫类型">
-                        <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
+                        <el-option v-for="(value, key, index) in options" :key="value" :label="key" :value="value">
                         </el-option>
                     </el-select>
                 </el-col>
@@ -22,7 +22,7 @@
             </el-row>
         </div>
         <div class="bottom" v-loading.body="loading" element-loading-text="拼命加载中">
-            <el-table :data="tableData" style="width: 100%" stripe >
+            <el-table :data="tableData" style="width: 100%" stripe>
                 <el-table-column prop="id" label="序号" width="100px"></el-table-column>
                 <el-table-column prop="key" label="表达式" width="400px"></el-table-column>
                 <el-table-column prop="parser" label="表达式类型"></el-table-column>
@@ -44,35 +44,49 @@
 </template>
 <script>
 import Mock from 'mockjs'
-let debug = 1;
+let debug = 0;
 if (debug) {
-    Mock.mock(/spidertypelist/, {
-        "code": 0,
-        "msg": '',
-        "status": true,
-        "data|5": [{
-            id: '@integer(1,9)',
-            name: '@first'
-        }]
+    Mock.mock(/api\/spider\/type\/list/, {
+        data: {
+            advanced: 7,
+            bbs: 4,
+            media: 8,
+            meta: 6,
+            news: 1,
+            search: 5,
+            weibo: 3,
+            weixin: 2
+        },
+        msg: "Success",
+        status: "YQ-000"
     })
-    Mock.mock(/tabledata/, {
-        "code": 0,
-        "msg": '',
-        "status": true,
+    Mock.mock(/api\/spider\/template\/list/, {
         "data": {
-            'table|10': [{
-                id: '@integer(1,9)',
-                key: '@url',
-                parser: '@integer(1,9)',
-                pageid: '@integer(1,9)',
-                type: '@integer(1,9)',
-                'status|1': [0,1]
-            }],
-            total: '@integer(22,186)',
-            current_page: 1,
-            per_page: 10
-        }
+            "conf": {
+                "page_index": 1,
+                "page_size": 10,
+                "total_num": 185,
+                "total_page": 19
+            },
+            "list|10": [{
+                "id": 1,
+                "key": "http://www.qctsw.com/tousu/doTousu_search",
+                "pageid": 2,
+                "parse_name": "URL",
+                "parser": 1,
+                "spider_name": "news",
+                "spider_type": 1,
+                "status": 1
+            }]
+        },
+        "msg": "Success",
+        "status": "YQ-000"
     })
+}
+
+const GLOBAL_URL = {
+    table_list: 'http://172.20.207.28:5000/api/spider/template/list',
+    spider_list: 'http://172.20.207.28:5000/api/spider/type/list'
 }
 
 export default {
@@ -95,7 +109,7 @@ export default {
     },
     methods: {
         getSpiderTypeList() {
-            this.$http.get('spidertypelist').then(res => {
+            this.$http.get(GLOBAL_URL.spider_list).then(res => {
                 this.options = res.body.data;
             }, res => {
                 console.log(res)
@@ -103,18 +117,20 @@ export default {
         },
         goSearch() {
             this.loading = true;
-            this.$http.post('gettabledata', {
-                param: {
-                    type: this.SelVal,
-                    keywords: this.keywords,
+            this.$http.get(GLOBAL_URL.table_list, {
+                params: {
+                    type: 'Seeds',
+                    spider_type: this.SelVal,
+                    filed_name: 'key',
+                    value: this.keywords,
                     page_index: this.currentPage,
                     page_size: this.pageSize
                 }
             }).then(res => {
-                this.tableData = res.body.data.table;
-                this.currentPage = res.body.data.current_page;
-                this.pageSize = res.body.data.per_page;
-                this.totalNum = res.body.data.total;
+                this.tableData = res.body.data.list;
+                this.currentPage = res.body.data.conf.page_index;
+                this.pageSize = res.body.data.conf.page_size;
+                this.totalNum = res.body.data.conf.total_num;
                 this.loading = false;
             }, res => {
                 console.log(res)

@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/seed' }">种子列表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/Seeds' }">种子列表</el-breadcrumb-item>
             <el-breadcrumb-item>{{ this.$route.query.type === 'add' ? '新增种子' : '编辑种子' }}</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="form-wrap">
@@ -84,7 +84,7 @@ export default {
             console.log('submit!');
         },
         goBack() {
-            this.$router.push('seed')
+            this.$router.push('Seeds')
         }
     }
 }

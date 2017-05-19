@@ -22,19 +22,63 @@
             </el-row>
         </div>
         <div class="bottom" v-loading.body="loading" element-loading-text="拼命加载中">
-            <el-table :data="tableData" style="width: 100%" stripe>
-                <el-table-column prop="id" label="序号" width="100px" align="center"></el-table-column>
-                <el-table-column prop="key" label="表达式" width="400px"></el-table-column>
-                <el-table-column prop="parse_name" label="表达式类型" align="center"></el-table-column>
-                <el-table-column prop="pageid" label="模板ID" align="center"></el-table-column>
-                <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
-                <el-table-column prop="status" label="种子状态" align="center"></el-table-column>
-                <el-table-column label="操作">
-                    <template scope="scope">
-                        <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
-                    </template>
-                </el-table-column>
-            </el-table>
+            <div v-if="flag === 'Seeds'">
+                <el-table :data="tableData" style="width: 100%" stripe key="111">
+                    <el-table-column prop="id" label="序号"  width="100px" align="center"></el-table-column>
+                    <el-table-column prop="key" label="表达式" width="400px" ></el-table-column>
+                    <el-table-column prop="parse_name" label="表达式类型" align="center"></el-table-column>
+                    <el-table-column prop="pageid" label="模板ID" align="center"></el-table-column>
+                    <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
+                    <el-table-column prop="status" label="种子状态" align="center"></el-table-column>
+                    <el-table-column label="操作">
+                        <template scope="scope">
+                            <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div v-else-if="flag === 'Page'">
+                <el-table :data="tableData" style="width: 100%" stripe key="222">
+                    <el-table-column prop="id" label="序号" align="center" width="100px"></el-table-column>
+                    <el-table-column prop="name" label="模板名称" align="center"></el-table-column>
+                    <el-table-column prop="demo_url" label="实例页URL" width="400px"></el-table-column>
+                    <el-table-column prop="downloader_type_name" label="下载类型" align="center"></el-table-column>
+                    <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
+                    <el-table-column label="操作">
+                        <template scope="scope">
+                            <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div v-else-if="flag === 'Link'">
+                <el-table :data="tableData" style="width: 100%" stripe key="333">
+                    <el-table-column prop="id" label="序号" align="center"></el-table-column>
+                    <el-table-column prop="name" label="模板名称" align="center"></el-table-column>
+                    <el-table-column prop="demo_url" label="实例页URL"></el-table-column>
+                    <el-table-column prop="downloader_type_name" label="下载类型" align="center"></el-table-column>
+                    <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
+                    <el-table-column label="操作">
+                        <template scope="scope">
+                            <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div v-else="flag === 'Filed'">
+                <el-table :data="tableData" style="width: 100%" stripe key="444">
+                    <el-table-column prop="id" label="序号" align="center"></el-table-column>
+                    <el-table-column prop="name" label="模板名称" align="center"></el-table-column>
+                    <el-table-column prop="demo_url" label="实例页URL"></el-table-column>
+                    <el-table-column prop="downloader_type_name" label="下载类型" align="center"></el-table-column>
+                    <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
+                    <el-table-column label="操作">
+                        <template scope="scope">
+                            <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
             <div class="fen">
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalNum">
                 </el-pagination>
@@ -93,6 +137,7 @@ export default {
     name: 'list',
     data() {
         return {
+            flag: this.$route.path.substring(1),
             options: [],
             SelVal: '',
             keywords: '',
@@ -118,9 +163,9 @@ export default {
             this.loading = true;
             let f_name;
 
-            if (this.$route.path.substring(1) === 'Seeds') {
+            if (this.flag === 'Seeds') {
                 f_name = 'key'
-            } else if (this.$route.path.substring(1) === 'Page') {
+            } else if (this.flag === 'Page') {
                 f_name = 'name'
             } else {
                 f_name = ''
@@ -128,7 +173,7 @@ export default {
 
             this.$http.get(GLOBAL_URL.table_list, {
                 params: {
-                    type: this.$route.path.substring(1),
+                    type: this.flag,
                     spider_type: this.SelVal,
                     filed_name: f_name,
                     value: this.keywords,
@@ -154,7 +199,6 @@ export default {
                 }
             })
         },
-
         handleSizeChange(val) {
             this.pageSize = val;
             this.goSearch();
@@ -162,6 +206,16 @@ export default {
         handleCurrentChange(val) {
             this.currentPage = val;
             this.goSearch();
+        },
+        resetPage() {
+            this.flag = this.$route.path.substring(1)
+            this.SelVal = ''
+            this.keywords = ''
+            this.tableData = []
+            this.currentPage = 1
+            this.pageSize = 10
+            this.totalNum = 0
+            this.loading = true
         }
 
     },
@@ -169,6 +223,8 @@ export default {
     // 专门对付重复路由渲染同一组件不刷新页面的问题
     watch: {
         '$route' (to, from) {
+            this.resetPage();
+            console.log(this.flag)
             this.goSearch();
         }
     }

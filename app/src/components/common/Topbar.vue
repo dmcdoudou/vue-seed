@@ -6,10 +6,10 @@
             </el-col>
             <el-col :span="15" :offset="1" class="sen">
                 <el-menu theme="dark" :default-active="nowPath" :unique-opened="isUnique" :router="isRouter" mode="horizontal">
-                    <el-menu-item index="/seed">种子管理</el-menu-item>
-                    <el-menu-item index="/template">模板管理</el-menu-item>
-                    <el-menu-item index="/link">链接管理</el-menu-item>
-                    <el-menu-item index="/form">表单管理</el-menu-item>
+                    <el-menu-item index="/Seeds">种子管理</el-menu-item>
+                    <el-menu-item index="/Page">模板管理</el-menu-item>
+                    <el-menu-item index="/Link">链接管理</el-menu-item>
+                    <el-menu-item index="/Field">表单管理</el-menu-item>
                     <el-menu-item index="/weather">天气预报</el-menu-item>
                     <el-menu-item index="/financing">个人理财</el-menu-item>
                 </el-menu>

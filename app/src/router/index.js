@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Seed from '@/components/Seed'
+import List from '@/components/List'
 import HandleSeed from '@/components/HandleSeed'
 import Template from '@/components/Template'
 import Link from '@/components/Link'
@@ -13,25 +13,25 @@ Vue.use(Router)
 export default new Router({
     routes: [{
         path: '/',
-        redirect: '/seed'
+        redirect: '/Seeds'
     }, {
-        path: '/seed',
-        name: 'Seed',
-        component: Seed
+        path: '/Seeds',
+        name: 'List',
+        component: List
     }, {
         path: '/handleSeed',
         name: 'HandleSeed',
         component: HandleSeed
     }, {
-        path: '/template',
-        name: 'Template',
-        component: Template
+        path: '/Page',
+        name: 'List',
+        component: List
     }, {
-        path: '/link',
+        path: '/Link',
         name: 'Link',
         component: Link
     }, {
-        path: '/form',
+        path: '/Field',
         name: 'Form',
         component: Form
     }, {

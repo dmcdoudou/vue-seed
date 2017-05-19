@@ -23,12 +23,12 @@
         </div>
         <div class="bottom" v-loading.body="loading" element-loading-text="拼命加载中">
             <el-table :data="tableData" style="width: 100%" stripe>
-                <el-table-column prop="id" label="序号" width="100px"></el-table-column>
+                <el-table-column prop="id" label="序号" width="100px" align="center"></el-table-column>
                 <el-table-column prop="key" label="表达式" width="400px"></el-table-column>
-                <el-table-column prop="parser" label="表达式类型"></el-table-column>
-                <el-table-column prop="pageid" label="模板ID"></el-table-column>
-                <el-table-column prop="type" label="爬虫类型"></el-table-column>
-                <el-table-column prop="status" label="种子状态"></el-table-column>
+                <el-table-column prop="parse_name" label="表达式类型"  align="center"></el-table-column>
+                <el-table-column prop="pageid" label="模板ID"  align="center"></el-table-column>
+                <el-table-column prop="spider_name" label="爬虫类型"  align="center"></el-table-column>
+                <el-table-column prop="status" label="种子状态"  align="center"></el-table-column>
                 <el-table-column label="操作">
                     <template scope="scope">
                         <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
@@ -85,12 +85,12 @@ if (debug) {
 }
 
 const GLOBAL_URL = {
-    table_list: 'http://172.20.207.28:5000/api/spider/template/list',
-    spider_list: 'http://172.20.207.28:5000/api/spider/type/list'
+    table_list: 'http://172.20.207.54:5000/api/spider/template/list',
+    spider_list: 'http://172.20.207.54:5000/api/spider/type/list'
 }
 
 export default {
-    name: 'seed',
+    name: 'list',
     data() {
         return {
             options: [],
@@ -103,25 +103,60 @@ export default {
             loading: true
         }
     },
+    beforeCreate() {
+        console.log('beforeCreate 钩子执行...');
+    },
     created() {
+        console.log('cteated 钩子执行...');
         this.getSpiderTypeList();
         this.goSearch();
     },
+    beforeMount() {
+        console.log('beforeMount 钩子执行...');
+    },
+    mounted() {
+        console.log('mounted 钩子执行...');
+    },
+    beforeUpdate() {
+        console.log('beforeUpdate 钩子执行...');
+    },
+    updated() {
+        console.log('updated 钩子执行...');
+    },
+    beforeDestroy() {
+        console.log('beforeDestroy 钩子执行...');
+    },
+    destroyed() {
+        console.log('destroyed 钩子执行...');
+    },
+    // created() {
+    //     this.getSpiderTypeList();
+    //     this.goSearch();
+    // },
     methods: {
         getSpiderTypeList() {
             this.$http.get(GLOBAL_URL.spider_list).then(res => {
                 this.options = res.body.data;
             }, res => {
-                console.log(res)
             })
         },
         goSearch() {
             this.loading = true;
+            let f_name;
+
+            if (this.$route.path.substring(1) === 'Seeds') {
+                f_name = 'key'
+            } else if (this.$route.path.substring(1) === 'Page') {
+                f_name = 'name'
+            } else {
+                f_name = ''
+            }
+
             this.$http.get(GLOBAL_URL.table_list, {
                 params: {
-                    type: 'Seeds',
+                    type: this.$route.path.substring(1),
                     spider_type: this.SelVal,
-                    filed_name: 'key',
+                    filed_name: f_name,
                     value: this.keywords,
                     page_index: this.currentPage,
                     page_size: this.pageSize
@@ -133,7 +168,7 @@ export default {
                 this.totalNum = res.body.data.conf.total_num;
                 this.loading = false;
             }, res => {
-                console.log(res)
+                this.loading = false;
             })
         },
         handleEdit(index, row) {

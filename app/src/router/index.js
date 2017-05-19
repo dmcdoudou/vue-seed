@@ -2,9 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import List from '@/components/List'
 import HandleSeed from '@/components/HandleSeed'
-import Template from '@/components/Template'
-import Link from '@/components/Link'
-import Form from '@/components/Form'
 import Weather from '@/components/Weather'
 import Financing from '@/components/Financing'
 
@@ -19,21 +16,17 @@ export default new Router({
         name: 'List',
         component: List
     }, {
-        path: '/handleSeed',
-        name: 'HandleSeed',
-        component: HandleSeed
-    }, {
         path: '/Page',
         name: 'List',
         component: List
     }, {
         path: '/Link',
-        name: 'Link',
-        component: Link
+        name: 'List',
+        component: List
     }, {
         path: '/Field',
-        name: 'Form',
-        component: Form
+        name: 'List',
+        component: List
     }, {
         path: '/weather',
         name: 'Weather',
@@ -42,5 +35,9 @@ export default new Router({
         path: '/financing',
         name: 'Financing',
         component: Financing
+    }, {
+        path: '/handleSeed',
+        name: 'HandleSeed',
+        component: HandleSeed
     }]
 })

@@ -25,10 +25,10 @@
             <el-table :data="tableData" style="width: 100%" stripe>
                 <el-table-column prop="id" label="序号" width="100px" align="center"></el-table-column>
                 <el-table-column prop="key" label="表达式" width="400px"></el-table-column>
-                <el-table-column prop="parse_name" label="表达式类型"  align="center"></el-table-column>
-                <el-table-column prop="pageid" label="模板ID"  align="center"></el-table-column>
-                <el-table-column prop="spider_name" label="爬虫类型"  align="center"></el-table-column>
-                <el-table-column prop="status" label="种子状态"  align="center"></el-table-column>
+                <el-table-column prop="parse_name" label="表达式类型" align="center"></el-table-column>
+                <el-table-column prop="pageid" label="模板ID" align="center"></el-table-column>
+                <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
+                <el-table-column prop="status" label="种子状态" align="center"></el-table-column>
                 <el-table-column label="操作">
                     <template scope="scope">
                         <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
@@ -103,42 +103,16 @@ export default {
             loading: true
         }
     },
-    beforeCreate() {
-        console.log('beforeCreate 钩子执行...');
-    },
+
     created() {
-        console.log('cteated 钩子执行...');
         this.getSpiderTypeList();
         this.goSearch();
     },
-    beforeMount() {
-        console.log('beforeMount 钩子执行...');
-    },
-    mounted() {
-        console.log('mounted 钩子执行...');
-    },
-    beforeUpdate() {
-        console.log('beforeUpdate 钩子执行...');
-    },
-    updated() {
-        console.log('updated 钩子执行...');
-    },
-    beforeDestroy() {
-        console.log('beforeDestroy 钩子执行...');
-    },
-    destroyed() {
-        console.log('destroyed 钩子执行...');
-    },
-    // created() {
-    //     this.getSpiderTypeList();
-    //     this.goSearch();
-    // },
     methods: {
         getSpiderTypeList() {
             this.$http.get(GLOBAL_URL.spider_list).then(res => {
                 this.options = res.body.data;
-            }, res => {
-            })
+            }, res => {})
         },
         goSearch() {
             this.loading = true;
@@ -190,6 +164,13 @@ export default {
             this.goSearch();
         }
 
+    },
+
+    // 专门对付重复路由渲染同一组件不刷新页面的问题
+    watch: {
+        '$route' (to, from) {
+            this.goSearch();
+        }
     }
 }
 </script>

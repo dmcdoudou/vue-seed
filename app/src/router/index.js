@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import List from '@/components/List'
-import HandleSeed from '@/components/HandleSeed'
+import HandleSeeds from '@/components/HandleSeeds'
 import Weather from '@/components/Weather'
 import Financing from '@/components/Financing'
 
@@ -36,8 +36,8 @@ export default new Router({
         name: 'Financing',
         component: Financing
     }, {
-        path: '/handleSeed',
-        name: 'HandleSeed',
-        component: HandleSeed
+        path: '/handleSeeds',
+        name: 'HandleSeeds',
+        component: HandleSeeds
     }]
 })

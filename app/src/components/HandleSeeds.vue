@@ -46,18 +46,16 @@ import Mock from 'mockjs'
 let debug = 0;
 if (debug) {
     Mock.mock(/spidertypelist/, {
-        "code": 0,
-        "msg": '',
-        "status": true,
-        "data|5": [{
-            id: '@integer(1,9)',
-            name: '@first'
-        }]
+
     })
 }
 
+const GLOBAL_URL = {
+    submit: 'submit'
+}
+
 export default {
-    name: 'link',
+    name: 'handleseeds',
     data() {
         return {
             form: {
@@ -81,7 +79,16 @@ export default {
     },
     methods: {
         onSubmit() {
-            console.log('submit!');
+            this.$http.post(GLOBAL_URL.submit, {
+                params: this.form
+            }).then(res => {
+                if (res.body.msg === 'Success') {
+                    this.$message.success('编辑成功！');
+                    this.goBack();
+                }
+            }, res => {
+                this.$message.error('网络错误，请稍后重试');
+            })
         },
         goBack() {
             this.$router.push('Seeds')

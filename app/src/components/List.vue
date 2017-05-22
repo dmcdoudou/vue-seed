@@ -9,30 +9,55 @@
                     </el-select>
                 </el-col>
                 <el-col :span="6">
-                    <el-input v-model="keywords" placeholder="请输入关键字"></el-input>
+                    <div v-if="flag === 'Seeds' || flag === 'Page'">
+                        <el-input v-model="keywords" placeholder="请输入关键字"></el-input>
+                    </div>
                 </el-col>
                 <el-col :span="6">
                     <el-button @click="goSearch"><i class="el-icon-search"></i> 查询</el-button>
                 </el-col>
-                <el-col :span="6" class="add-btn">
-                    <router-link :to="{ path: 'handleSeed', query: { type: 'add' }}">
-                        <el-button type="primary"><i class="el-icon-plus"></i> 新增种子</el-button>
-                    </router-link>
-                </el-col>
+                <div v-if="flag === 'Seeds'">
+                    <el-col :span="6" class="add-btn">
+                        <router-link :to="{ path: 'handleSeeds', query: { type: 'add' }}">
+                            <el-button type="primary"><i class="el-icon-plus"></i> 新增种子</el-button>
+                        </router-link>
+                    </el-col>
+                </div>
+                <div v-if="flag === 'Page'">
+                    <el-col :span="6" class="add-btn">
+                        <router-link :to="{ path: 'handlePage', query: { type: 'add' }}">
+                            <el-button type="primary"><i class="el-icon-plus"></i> 新增模板</el-button>
+                        </router-link>
+                    </el-col>
+                </div>
+                <div v-if="flag === 'Link'">
+                    <el-col :span="12" class="add-btn">
+                        <router-link :to="{ path: 'handleLink', query: { type: 'add' }}">
+                            <el-button type="primary"><i class="el-icon-plus"></i> 新增链接</el-button>
+                        </router-link>
+                    </el-col>
+                </div>
+                <div v-if="flag === 'Field'">
+                    <el-col :span="12" class="add-btn">
+                        <router-link :to="{ path: 'handleField', query: { type: 'add' }}">
+                            <el-button type="primary"><i class="el-icon-plus"></i> 新增表单</el-button>
+                        </router-link>
+                    </el-col>
+                </div>
             </el-row>
         </div>
         <div class="bottom" v-loading.body="loading" element-loading-text="拼命加载中">
             <div v-if="flag === 'Seeds'">
                 <el-table :data="tableData" style="width: 100%" stripe key="111">
-                    <el-table-column prop="id" label="序号"  width="100px" align="center"></el-table-column>
-                    <el-table-column prop="key" label="表达式" width="400px" ></el-table-column>
+                    <el-table-column prop="id" label="序号" width="100px" align="center"></el-table-column>
+                    <el-table-column prop="key" label="表达式" width="400px"></el-table-column>
                     <el-table-column prop="parse_name" label="表达式类型" align="center"></el-table-column>
                     <el-table-column prop="pageid" label="模板ID" align="center"></el-table-column>
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
                     <el-table-column prop="status" label="种子状态" align="center"></el-table-column>
                     <el-table-column label="操作">
                         <template scope="scope">
-                            <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
+                            <i class="el-icon-edit edit-btn" @click="handleEdit('Seeds', scope.row)"></i>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -46,7 +71,7 @@
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
                     <el-table-column label="操作">
                         <template scope="scope">
-                            <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
+                            <i class="el-icon-edit edit-btn" @click="handleEdit('Page', scope.row)"></i>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -60,12 +85,12 @@
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
                     <el-table-column label="操作">
                         <template scope="scope">
-                            <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
+                            <i class="el-icon-edit edit-btn" @click="handleEdit('Link', scope.row)"></i>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
-            <div v-else="flag === 'Filed'">
+            <div v-else="flag === 'Field'">
                 <el-table :data="tableData" style="width: 100%" stripe key="444">
                     <el-table-column prop="id" label="序号" align="center"></el-table-column>
                     <el-table-column prop="name" label="模板名称" align="center"></el-table-column>
@@ -74,7 +99,7 @@
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
                     <el-table-column label="操作">
                         <template scope="scope">
-                            <i class="el-icon-edit edit-btn" @click="handleEdit(scope.$index, scope.row)"></i>
+                            <i class="el-icon-edit edit-btn" @click="handleEdit('Field', scope.row)"></i>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -175,7 +200,7 @@ export default {
                 params: {
                     type: this.flag,
                     spider_type: this.SelVal,
-                    filed_name: f_name,
+                    Field_name: f_name,
                     value: this.keywords,
                     page_index: this.currentPage,
                     page_size: this.pageSize
@@ -190,9 +215,9 @@ export default {
                 this.loading = false;
             })
         },
-        handleEdit(index, row) {
+        handleEdit(type, row) {
             this.$router.push({
-                path: 'handleSeed',
+                path: `handle${type}`,
                 query: {
                     type: 'edit',
                     data: JSON.stringify(row)

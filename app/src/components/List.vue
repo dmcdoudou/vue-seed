@@ -3,7 +3,7 @@
         <div class="top">
             <el-row :gutter="20">
                 <el-col :span="6">
-                    <el-select v-model="SelVal" placeholder="请选择爬虫类型">
+                    <el-select v-model="SelVal" clearable placeholder="请选择爬虫类型">
                         <el-option v-for="(value, key, index) in options" :key="value" :label="key" :value="value">
                         </el-option>
                     </el-select>
@@ -57,7 +57,7 @@
                     <el-table-column prop="status" label="种子状态" align="center"></el-table-column>
                     <el-table-column label="操作">
                         <template scope="scope">
-                            <i class="el-icon-edit edit-btn" @click="handleEdit('Seeds', scope.row)"></i>
+                            <i class="el-icon-edit edit-btn" @click="handleEdit(flag, scope.row)"></i>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -67,25 +67,28 @@
                     <el-table-column prop="id" label="序号" align="center" width="100px"></el-table-column>
                     <el-table-column prop="name" label="模板名称" align="center"></el-table-column>
                     <el-table-column prop="demo_url" label="实例页URL" width="400px"></el-table-column>
-                    <el-table-column prop="downloader_type_name" label="下载类型" align="center"></el-table-column>
+                    <el-table-column prop="downloader_type_name" label="下载方式" align="center"></el-table-column>
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
                     <el-table-column label="操作">
                         <template scope="scope">
-                            <i class="el-icon-edit edit-btn" @click="handleEdit('Page', scope.row)"></i>
+                            <i class="el-icon-edit edit-btn" @click="handleEdit(flag, scope.row)"></i>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
             <div v-else-if="flag === 'Link'">
                 <el-table :data="tableData" style="width: 100%" stripe key="333">
-                    <el-table-column prop="id" label="序号" align="center"></el-table-column>
-                    <el-table-column prop="name" label="模板名称" align="center"></el-table-column>
-                    <el-table-column prop="demo_url" label="实例页URL"></el-table-column>
-                    <el-table-column prop="downloader_type_name" label="下载类型" align="center"></el-table-column>
+                    <el-table-column prop="id" label="序号" align="center" width="100px"></el-table-column>
+                    <el-table-column prop="include" label="包含字符串" align="center"></el-table-column>
+                    <el-table-column prop="exclude" label=" 不包含字符串"></el-table-column>
+                    <el-table-column prop="area" label="xpath表达式" width="350px"></el-table-column>
+                    <el-table-column prop="pageid" label="模板ID" align="center"></el-table-column>
+                    <el-table-column prop="extractor_list" label="抽取器列表"></el-table-column>
+                    <el-table-column prop="type" label="字段类型" align="center"></el-table-column>
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
                     <el-table-column label="操作">
                         <template scope="scope">
-                            <i class="el-icon-edit edit-btn" @click="handleEdit('Link', scope.row)"></i>
+                            <i class="el-icon-edit edit-btn" @click="handleEdit(flag, scope.row)"></i>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -93,13 +96,13 @@
             <div v-else="flag === 'Field'">
                 <el-table :data="tableData" style="width: 100%" stripe key="444">
                     <el-table-column prop="id" label="序号" align="center"></el-table-column>
-                    <el-table-column prop="name" label="模板名称" align="center"></el-table-column>
-                    <el-table-column prop="demo_url" label="实例页URL"></el-table-column>
-                    <el-table-column prop="downloader_type_name" label="下载类型" align="center"></el-table-column>
-                    <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
+                    <el-table-column prop="name" label="字段名称" align="center"></el-table-column>
+                    <el-table-column prop="type_name" label="字段类型"></el-table-column>
+                    <el-table-column prop="extractor_type_name" label="抽取器类型" align="center"></el-table-column>
+                    <!-- <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column> -->
                     <el-table-column label="操作">
                         <template scope="scope">
-                            <i class="el-icon-edit edit-btn" @click="handleEdit('Field', scope.row)"></i>
+                            <i class="el-icon-edit edit-btn" @click="handleEdit(flag, scope.row)"></i>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -151,11 +154,13 @@ if (debug) {
         "msg": "Success",
         "status": "YQ-000"
     })
+
 }
 
+const ROOT_URL = 'http://172.20.207.28:5000';
 const GLOBAL_URL = {
-    table_list: 'http://172.20.207.54:5000/api/spider/template/list',
-    spider_list: 'http://172.20.207.54:5000/api/spider/type/list'
+    table_list: `${ROOT_URL}/api/spider/template/list`,
+    spider_list: `${ROOT_URL}/api/spider/type/list`
 }
 
 export default {
@@ -249,7 +254,6 @@ export default {
     watch: {
         '$route' (to, from) {
             this.resetPage();
-            console.log(this.flag)
             this.goSearch();
         }
     }

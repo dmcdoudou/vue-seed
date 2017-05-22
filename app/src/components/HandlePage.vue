@@ -1,34 +1,28 @@
 <template>
     <div>
         <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/Seeds' }">种子列表</el-breadcrumb-item>
-            <el-breadcrumb-item>{{ this.$route.query.type === 'add' ? '新增种子' : '编辑种子' }}</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/Page' }">模板列表</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ this.$route.query.type === 'add' ? '新增模板' : '编辑模板' }}</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="form-wrap">
             <el-form ref="form" :model="form" label-width="120px">
                 <el-form-item label="序号">
                     <el-input v-model="form.id" :disabled="true"></el-input>
                 </el-form-item>
-                <el-form-item label="种子表达式">
+                <el-form-item label="模板名称">
                     <el-input v-model="form.key"></el-input>
                 </el-form-item>
-                <el-form-item label="种子状态">
-                    <el-switch v-model="form.status" on-text="ON" off-text="OFF"></el-switch>
+                <el-form-item label="示例地址">
+                    <el-input v-model="form.key"></el-input>
                 </el-form-item>
-                <el-form-item label="种子解析类型">
-                    <el-select v-model="form.parser" placeholder="请选择种子解析类型">
+                <el-form-item label="下载方式">
+                    <el-select v-model="form.parser" placeholder="请选择下载方式">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
                     <el-select v-model="form.type" placeholder="请选择爬虫类型">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="关联模板">
-                    <el-select v-model="form.pageid" placeholder="请选择关联模板">
                         <el-option label="区域一" value="shanghai"></el-option>
                         <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
@@ -56,7 +50,7 @@ const GLOBAL_URL = {
 }
 
 export default {
-    name: 'handleseeds',
+    name: 'handlepage',
     data() {
         return {
             form: {
@@ -92,7 +86,7 @@ export default {
             })
         },
         goBack() {
-            this.$router.push('Seeds')
+            this.$router.push('Page')
         }
     }
 }

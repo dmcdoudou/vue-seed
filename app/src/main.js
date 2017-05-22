@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueResource from 'vue-resource' //填坑说明：用require的话，你会死的很惨
+import 'font-awesome/less/font-awesome.less'
 import {
     Row,
     Col,
@@ -27,8 +28,6 @@ import {
     Loading
 } from 'element-ui'
 
-// 引入font图标
-import 'font-awesome/less/font-awesome.less'
 
 // 注册各个插件
 Vue.use(VueResource);
@@ -56,6 +55,15 @@ Vue.prototype.$loading = Loading.service
 Vue.prototype.$message = Message
 
 Vue.config.productionTip = false
+
+// vue-resource的全局拦截器
+// Vue.http.interceptors.push(function(request, next) {
+//   // modify method
+//   // request.method = 'post';
+//   next((response) => {
+//       return response;
+//     });
+// });
 
 /* eslint-disable no-new */
 new Vue({

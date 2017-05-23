@@ -9,7 +9,7 @@
                     <el-menu-item index="/Seeds">种子管理</el-menu-item>
                     <el-menu-item index="/Page">模板管理</el-menu-item>
                     <el-menu-item index="/Link">链接管理</el-menu-item>
-                    <el-menu-item index="/Field">表单管理</el-menu-item>
+                    <el-menu-item index="/Schema">表单管理</el-menu-item>
                     <el-menu-item index="/weather">天气预报</el-menu-item>
                     <el-menu-item index="/financing">个人理财</el-menu-item>
                 </el-menu>

@@ -27,7 +27,7 @@ export default new Router({
         name: 'List',
         component: List
     }, {
-        path: '/Field',
+        path: '/Schema',
         name: 'List',
         component: List
     }, {

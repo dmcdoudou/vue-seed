@@ -37,9 +37,9 @@
                         </router-link>
                     </el-col>
                 </div>
-                <div v-if="flag === 'Field'">
+                <div v-if="flag === 'Schema'">
                     <el-col :span="12" class="add-btn">
-                        <router-link :to="{ path: 'handleField', query: { type: 'add' }}">
+                        <router-link :to="{ path: 'handleSchema', query: { type: 'add' }}">
                             <el-button type="primary"><i class="el-icon-plus"></i> 新增表单</el-button>
                         </router-link>
                     </el-col>
@@ -93,14 +93,14 @@
                     </el-table-column>
                 </el-table>
             </div>
-            <div v-else="flag === 'Field'">
+            <div v-else="flag === 'Schema'">
                 <el-table :data="tableData" style="width: 100%" stripe key="444">
-                    <el-table-column prop="id" label="序号" align="center"></el-table-column>
-                    <el-table-column prop="name" label="字段名称" align="center"></el-table-column>
-                    <el-table-column prop="type_name" label="字段类型"></el-table-column>
-                    <el-table-column prop="extractor_type_name" label="抽取器类型" align="center"></el-table-column>
-                    <!-- <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column> -->
-                    <el-table-column label="操作">
+                    <el-table-column prop="id" label="序号" align="center" width="100px"></el-table-column>
+                    <el-table-column prop="table_name" label="表名称" align="center" width="150px"></el-table-column>
+                    <el-table-column prop="columns" label="字段列表" width="250px"></el-table-column>
+                    <el-table-column prop="area" label="区域组入口" align="center" width="450px"></el-table-column>
+                    <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
+                    <el-table-column label="操作" width="100px">
                         <template scope="scope">
                             <i class="el-icon-edit edit-btn" @click="handleEdit(flag, scope.row)"></i>
                         </template>

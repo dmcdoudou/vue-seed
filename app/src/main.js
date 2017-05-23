@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueResource from 'vue-resource' //填坑说明：用require的话，你会死的很惨
+import VueResource from 'vue-resource' //这里是一个坑：用require的话，你会死的很惨
 import 'font-awesome/less/font-awesome.less'
 import {
     Row,
@@ -29,7 +29,7 @@ import {
 } from 'element-ui'
 
 
-// 注册各个插件
+// 安装各个插件
 Vue.use(VueResource);
 Vue.use(Row)
 Vue.use(Col)
@@ -54,18 +54,19 @@ Vue.use(Loading.directive)
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$message = Message
 
+// Vue 的全局配置
 Vue.config.productionTip = false
 
 // vue-resource的全局拦截器
 // Vue.http.interceptors.push(function(request, next) {
-//   // modify method
+//   // 修改方法
 //   // request.method = 'post';
+//   // 设置返回
 //   next((response) => {
 //       return response;
 //     });
 // });
 
-/* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,

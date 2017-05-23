@@ -40,6 +40,7 @@ npm run build --report
 * 如果要设置代理，编辑config/index.js中的dev.proxyTable
 * 如果要使用LESS，则首先执行npm i less less-loader --save-dev，然后在style标签中添加lang="less"
 * 安装或删除模块请使用Yarn命令 ！！！！！！！！
+* 实现按需加载：const List = resolve => require(['./../components/List'], resolve)
 * 踩坑实录：封装eCharts时，如果不在模板中绑定父组件中传过来的数据的话，子组件完全不更新
 * 踩坑实录：页面内导航用: this.$router.push() 获取路由中的数据：this.$route.query 获取Path用 this.$route.path
 * 踩坑实录：使用v-if的时候，尽量加上key，否则vue有可能复用相同的东西，导致蛋疼的问题

@@ -2,11 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 按需加载配置组件
-const List = resolve => require(['./../components/List'],resolve)
-const HandleSeeds = resolve => require(['./../components/HandleSeeds'],resolve)
-const HandlePage = resolve => require(['./../components/HandlePage'],resolve)
-const Weather = resolve => require(['./../components/Weather'],resolve)
-const Financing = resolve => require(['./../components/Financing'],resolve)
+const List = resolve => require(['./../components/List'], resolve)
+const HandleSeeds = resolve => require(['./../components/HandleSeeds'], resolve)
+const HandlePage = resolve => require(['./../components/HandlePage'], resolve)
+const Weather = resolve => require(['./../components/Weather'], resolve)
+const Financing = resolve => require(['./../components/Financing'], resolve)
 
 Vue.use(Router)
 

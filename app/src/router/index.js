@@ -5,6 +5,8 @@ import Router from 'vue-router'
 const List = resolve => require(['./../components/List'], resolve)
 const HandleSeeds = resolve => require(['./../components/HandleSeeds'], resolve)
 const HandlePage = resolve => require(['./../components/HandlePage'], resolve)
+const HandleLink = resolve => require(['./../components/HandleLink'], resolve)
+const HandleSchema = resolve => require(['./../components/HandleSchema'], resolve)
 const Weather = resolve => require(['./../components/Weather'], resolve)
 const Financing = resolve => require(['./../components/Financing'], resolve)
 
@@ -46,5 +48,13 @@ export default new Router({
         path: '/handlePage',
         name: 'HandlePage',
         component: HandlePage
+    }, {
+        path: '/handleLink',
+        name: 'HandleLink',
+        component: HandleLink
+    }, {
+        path: '/handleSchema',
+        name: 'HandleSchema',
+        component: HandleSchema
     }]
 })

@@ -1,38 +1,38 @@
 <template>
     <div>
         <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/Page' }">模板列表</el-breadcrumb-item>
-            <el-breadcrumb-item>{{ this.$route.query.type === 'add' ? '新增模板' : '编辑模板' }}</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/Link' }">链接列表</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ this.$route.query.type === 'add' ? '新增链接' : '编辑链接' }}</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="form-wrap">
             <el-form ref="form" :model="form" label-width="120px">
                 <el-form-item label="序号">
                     <el-input v-model="form.id" disabled placeholder="系统自动生成，不用填写"></el-input>
                 </el-form-item>
-                <el-form-item label="模板名称">
-                    <el-input v-model="form.name" placeholder="请填写模板名称"></el-input>
+                <el-form-item label="包含的字符串">
+                    <el-input v-model="form.include" placeholder="请填写包含的字符串"></el-input>
                 </el-form-item>
-                <el-form-item label="示例地址">
-                    <el-input v-model="form.demo_url" placeholder="请填写示例地址"></el-input>
+                <el-form-item label="排除的字符串">
+                    <el-input v-model="form.exclude" placeholder="请填写排除的字符串"></el-input>
                 </el-form-item>
-                <el-form-item label="下载方式">
-                    <el-select v-model="form.downloader_type" placeholder="请选择下载方式">
-                        <el-option v-for="(value, key, index) in downloader_list" :label="key" :value="value" :key="index"></el-option>
+                <el-form-item label="关联模板">
+                    <el-input v-model="form.pageid" placeholder="请填写关联模板ID"></el-input>
+                </el-form-item>
+                <el-form-item label="链接区域">
+                    <el-input type="textarea" :rows="3" v-model="form.area" placeholder=""></el-input>
+                </el-form-item>
+                <el-form-item label="表达式类型">
+                    <el-select v-model="form.type" placeholder="请选择表达式类型">
+                        <el-option v-for="(value, key, index) in extractor_type_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
+                </el-form-item>
+                <el-form-item label="抽取表达式">
+                    <el-input v-model="form.extractor_list" placeholder="这里对应哪个Key?"></el-input>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
                     <el-select v-model="form.spider_type" placeholder="请选择爬虫类型">
                         <el-option v-for="(value, key, index) in spider_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
-                </el-form-item>
-                <el-form-item label="链接器ID列表">
-                    <el-input v-model="form.linkid_list" placeholder="请填写链接器ID列表，英文逗号分隔"></el-input>
-                </el-form-item>
-                <el-form-item label="元数据ID列表">
-                    <el-input v-model="form.schemaid_list" placeholder="请填写元数据ID列表，英文逗号分隔"></el-input>
-                </el-form-item>
-                <el-form-item label="自定义JS">
-                    <el-input type="textarea" :rows="3" v-model="form.js_text" placeholder="请填写page页面需要执行的js脚本"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -45,42 +45,42 @@
 <script>
 const ROOT_URL = 'http://172.20.207.28:5000';
 const GLOBAL_URL = {
-    downloader_list: `${ROOT_URL}/api/spider/download/type`,
+    extractor_type_list: `${ROOT_URL}/api/spider/extractor/type/list`,
     spider_list: `${ROOT_URL}/api/spider/type/list`,
     submit: `${ROOT_URL}/api/spider/seed/update`
 }
 
 export default {
-    name: 'handlepage',
+    name: 'handlelink',
     data() {
         return {
             form: {
                 id: '',
-                name: '',
-                demo_url: '',
-                downloader_type: '',
-                js_text: '',
-                linkid_list: '',
-                schemaid_list: '',
-                spider_type: ''
+                include: '',
+                exclude: '',
+                pageid: '',
+                area: '',
+                extractor_list: '',
+                spider_type: '',
+                type: ''
             },
-            downloader_list: {},
+            extractor_type_list: {},
             spider_list: {}
         }
     },
     created() {
-        this.getDownloaderList()
+        this.getExtractorTypeList()
         this.getSpiderList()
         this.renderPage()
     },
     methods: {
-        getDownloaderList() {
-            this.$http.get(GLOBAL_URL.downloader_list).then(res => {
+        getExtractorTypeList() {
+            this.$http.get(GLOBAL_URL.extractor_type_list).then(res => {
                 if (res.body.msg === 'Success') {
-                    this.downloader_list = res.body.data
+                    this.extractor_type_list = res.body.data
                 }
             }, res => {
-                this.$message.error('网络错误，下载类型列表获取失败');
+                this.$message.error('网络错误，抽取器类型列表获取失败');
             })
         },
         getSpiderList() {
@@ -115,7 +115,7 @@ export default {
             })
         },
         goBack() {
-            this.$router.push('Page')
+            this.$router.push('Link')
         }
     }
 }

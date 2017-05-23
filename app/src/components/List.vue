@@ -68,7 +68,10 @@
                     <el-table-column prop="name" label="模板名称" align="center"></el-table-column>
                     <el-table-column prop="demo_url" label="实例页URL" width="400px"></el-table-column>
                     <el-table-column prop="downloader_type_name" label="下载方式" align="center"></el-table-column>
+                    <el-table-column prop="js_text" label="自定义JS" align="center"></el-table-column>
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
+                    <el-table-column prop="linkid_list" label="链接器ID列表" align="center"></el-table-column>
+                    <el-table-column prop="schemaid_list" label="元数据ID列表" align="center"></el-table-column>
                     <el-table-column label="操作">
                         <template scope="scope">
                             <i class="el-icon-edit edit-btn" @click="handleEdit(flag, scope.row)"></i>

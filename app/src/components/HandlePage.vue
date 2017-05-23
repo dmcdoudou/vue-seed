@@ -43,7 +43,7 @@
     </div>
 </template>
 <script>
-const ROOT_URL = 'http://172.20.207.28:5000';
+const ROOT_URL = 'http://111.22.333.44:5555';
 const GLOBAL_URL = {
     downloader_list: `${ROOT_URL}/api/spider/download/type`,
     spider_list: `${ROOT_URL}/api/spider/type/list`,

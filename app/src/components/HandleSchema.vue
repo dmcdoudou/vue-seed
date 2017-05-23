@@ -29,7 +29,7 @@
     </div>
 </template>
 <script>
-const ROOT_URL = 'http://172.20.207.28:5000';
+const ROOT_URL = 'http://111.22.333.44:5555';
 const GLOBAL_URL = {
     extractor_type_list: `${ROOT_URL}/api/spider/extractor/type/list`,
     spider_list: `${ROOT_URL}/api/spider/type/list`,

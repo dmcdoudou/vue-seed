@@ -8,7 +8,7 @@ const HandlePage = resolve => require(['./../components/HandlePage'], resolve)
 const HandleLink = resolve => require(['./../components/HandleLink'], resolve)
 const HandleSchema = resolve => require(['./../components/HandleSchema'], resolve)
 const Weather = resolve => require(['./../components/Weather'], resolve)
-const Financing = resolve => require(['./../components/Financing'], resolve)
+const NotFoundPage = resolve => require(['./../components/NotFoundPage'], resolve)
 
 Vue.use(Router)
 
@@ -37,10 +37,6 @@ export default new Router({
         name: 'Weather',
         component: Weather
     }, {
-        path: '/financing',
-        name: 'Financing',
-        component: Financing
-    }, {
         path: '/handleSeeds',
         name: 'HandleSeeds',
         component: HandleSeeds
@@ -56,5 +52,9 @@ export default new Router({
         path: '/handleSchema',
         name: 'HandleSchema',
         component: HandleSchema
+    }, {
+        path: '*',
+        name: 'NotFoundPage',
+        component: NotFoundPage
     }]
 })

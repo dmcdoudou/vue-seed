@@ -12,8 +12,8 @@
                 <el-form-item label="表单名称">
                     <el-input v-model="form.table_name" placeholder="请填写表单名称"></el-input>
                 </el-form-item>
-                <el-form-item label="表单区域表达式">
-                    <el-input type="textarea" :rows="3" v-model="form.area" placeholder="请填写表单区域表达式"></el-input>
+                <el-form-item label="表单采集区域">
+                    <el-input type="textarea" :rows="3" v-model="form.area" placeholder="请填写表单表单采集区域"></el-input>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
                     <el-select clearable filterable v-model="form.spider_type" placeholder="请选择爬虫类型">

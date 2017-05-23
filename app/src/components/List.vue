@@ -83,8 +83,8 @@
                 <el-table :data="tableData" style="width: 100%" stripe key="333">
                     <el-table-column prop="id" label="序号" align="center" width="100px"></el-table-column>
                     <el-table-column prop="include" label="包含字符串" align="center"></el-table-column>
-                    <el-table-column prop="exclude" label=" 不包含字符串"></el-table-column>
-                    <el-table-column prop="area" label="xpath表达式" width="350px"></el-table-column>
+                    <el-table-column prop="exclude" label=" 排除字符串"></el-table-column>
+                    <el-table-column prop="area" label="链接采集区域" width="350px"></el-table-column>
                     <el-table-column prop="pageid" label="模板ID" align="center"></el-table-column>
                     <el-table-column prop="extractor_list" label="抽取器列表"></el-table-column>
                     <el-table-column prop="type" label="字段类型" align="center"></el-table-column>
@@ -101,7 +101,7 @@
                     <el-table-column prop="id" label="序号" align="center" width="100px"></el-table-column>
                     <el-table-column prop="table_name" label="表名称" align="center" width="150px"></el-table-column>
                     <el-table-column prop="columns" label="字段列表" width="250px"></el-table-column>
-                    <el-table-column prop="area" label="区域组入口" align="center" width="450px"></el-table-column>
+                    <el-table-column prop="area" label="表单采集区域" align="center" width="450px"></el-table-column>
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
                     <el-table-column label="操作" width="100px">
                         <template scope="scope">

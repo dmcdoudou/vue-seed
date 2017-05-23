@@ -18,8 +18,8 @@
                 <el-form-item label="关联模板">
                     <el-input v-model="form.pageid" placeholder="请填写关联模板ID"></el-input>
                 </el-form-item>
-                <el-form-item label="链接区域">
-                    <el-input type="textarea" :rows="3" v-model="form.area" placeholder=""></el-input>
+                <el-form-item label="链接采集区域">
+                    <el-input type="textarea" :rows="3" v-model="form.area" placeholder="请填写表链接采集区域"></el-input>
                 </el-form-item>
                 <el-form-item label="表达式类型">
                     <el-select clearable filterable v-model="form.type" placeholder="请选择表达式类型">
@@ -27,7 +27,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="抽取表达式">
-                    <el-input v-model="form.extractor_list" placeholder="这里对应哪个Key?"></el-input>
+                    <el-input v-model="form.extractor_list" placeholder="请填写抽取表达式"></el-input>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
                     <el-select clearable filterable v-model="form.spider_type" placeholder="请选择爬虫类型">

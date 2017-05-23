@@ -3,7 +3,7 @@
         <div class="top">
             <el-row :gutter="20">
                 <el-col :span="6">
-                    <el-select v-model="SelVal" clearable placeholder="请选择爬虫类型">
+                    <el-select v-model="SelVal" clearable filterable placeholder="请选择爬虫类型">
                         <el-option v-for="(value, key, index) in options" :key="value" :label="key" :value="value">
                         </el-option>
                     </el-select>

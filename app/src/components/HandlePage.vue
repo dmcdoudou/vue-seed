@@ -16,12 +16,12 @@
                     <el-input v-model="form.demo_url" placeholder="请填写示例地址"></el-input>
                 </el-form-item>
                 <el-form-item label="下载方式">
-                    <el-select v-model="form.downloader_type" placeholder="请选择下载方式">
+                    <el-select clearable filterable v-model="form.downloader_type" placeholder="请选择下载方式">
                         <el-option v-for="(value, key, index) in downloader_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
-                    <el-select v-model="form.spider_type" placeholder="请选择爬虫类型">
+                    <el-select clearable filterable v-model="form.spider_type" placeholder="请选择爬虫类型">
                         <el-option v-for="(value, key, index) in spider_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
                 </el-form-item>

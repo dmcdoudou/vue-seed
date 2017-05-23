@@ -16,13 +16,13 @@
                     <el-switch v-model="form.status" on-text="ON" off-text="OFF"></el-switch>
                 </el-form-item>
                 <el-form-item label="种子解析类型">
-                    <el-select v-model="form.parser" placeholder="请选择种子解析类型">
+                    <el-select clearable filterable v-model="form.parser" placeholder="请选择种子解析类型">
                         <!-- 数据源是对象的时候，这么渲染出列表，要记得绑定和添加唯一的KEY -->
                         <el-option v-for="(value, key, index) in parse_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
-                    <el-select v-model="form.spider_type" placeholder="请选择爬虫类型">
+                    <el-select clearable filterable v-model="form.spider_type" placeholder="请选择爬虫类型">
                         <el-option v-for="(value, key, index) in spider_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
                 </el-form-item>

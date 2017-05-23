@@ -12,12 +12,11 @@
                 <el-form-item label="表单名称">
                     <el-input v-model="form.table_name" placeholder="请填写表单名称"></el-input>
                 </el-form-item>
-
                 <el-form-item label="表单区域表达式">
                     <el-input type="textarea" :rows="3" v-model="form.area" placeholder="请填写表单区域表达式"></el-input>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
-                    <el-select v-model="form.spider_type" placeholder="请选择爬虫类型">
+                    <el-select clearable filterable v-model="form.spider_type" placeholder="请选择爬虫类型">
                         <el-option v-for="(value, key, index) in spider_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
                 </el-form-item>

@@ -22,7 +22,7 @@
                     <el-input type="textarea" :rows="3" v-model="form.area" placeholder=""></el-input>
                 </el-form-item>
                 <el-form-item label="表达式类型">
-                    <el-select v-model="form.type" placeholder="请选择表达式类型">
+                    <el-select clearable filterable v-model="form.type" placeholder="请选择表达式类型">
                         <el-option v-for="(value, key, index) in extractor_type_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
                 </el-form-item>
@@ -30,7 +30,7 @@
                     <el-input v-model="form.extractor_list" placeholder="这里对应哪个Key?"></el-input>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
-                    <el-select v-model="form.spider_type" placeholder="请选择爬虫类型">
+                    <el-select clearable filterable v-model="form.spider_type" placeholder="请选择爬虫类型">
                         <el-option v-for="(value, key, index) in spider_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
                 </el-form-item>

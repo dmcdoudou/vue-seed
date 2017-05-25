@@ -11,7 +11,7 @@ import topbar from './components/common/Topbar'
 export default {
     name: 'app',
     components: {
-        topbar: topbar
+        topbar: topbar,
     }
 }
 </script>

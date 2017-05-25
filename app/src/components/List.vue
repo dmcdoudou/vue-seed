@@ -14,33 +14,33 @@
                     </div>
                 </el-col>
                 <el-col :span="6">
-                    <el-button @click="goSearch"><i class="el-icon-search"></i> 查询</el-button>
+                    <el-button @click="goSearch" icon="search">查询</el-button>
                 </el-col>
                 <div v-if="flag === 'Seeds'">
                     <el-col :span="6" class="add-btn">
                         <router-link :to="{ path: 'handleSeeds', query: { type: 'add' }}">
-                            <el-button type="primary"><i class="el-icon-plus"></i> 新增种子</el-button>
+                            <el-button type="primary" icon="plus">新增种子</el-button>
                         </router-link>
                     </el-col>
                 </div>
                 <div v-if="flag === 'Page'">
                     <el-col :span="6" class="add-btn">
                         <router-link :to="{ path: 'handlePage', query: { type: 'add' }}">
-                            <el-button type="primary"><i class="el-icon-plus"></i> 新增模板</el-button>
+                            <el-button type="primary" icon="plus">新增模板</el-button>
                         </router-link>
                     </el-col>
                 </div>
                 <div v-if="flag === 'Link'">
                     <el-col :span="12" class="add-btn">
                         <router-link :to="{ path: 'handleLink', query: { type: 'add' }}">
-                            <el-button type="primary"><i class="el-icon-plus"></i> 新增链接</el-button>
+                            <el-button type="primary" icon="plus">新增链接</el-button>
                         </router-link>
                     </el-col>
                 </div>
                 <div v-if="flag === 'Schema'">
                     <el-col :span="12" class="add-btn">
                         <router-link :to="{ path: 'handleSchema', query: { type: 'add' }}">
-                            <el-button type="primary"><i class="el-icon-plus"></i> 新增表单</el-button>
+                            <el-button type="primary" icon="plus">新增表单</el-button>
                         </router-link>
                     </el-col>
                 </div>
@@ -70,8 +70,8 @@
                     <el-table-column prop="downloader_type_name" label="下载方式" align="center"></el-table-column>
                     <el-table-column prop="js_text" label="自定义JS" align="center"></el-table-column>
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
-                    <el-table-column prop="linkid_list" label="链接器ID列表" align="center"></el-table-column>
-                    <el-table-column prop="schemaid_list" label="元数据ID列表" align="center"></el-table-column>
+                    <el-table-column prop="linkid_list" label="链接器列表" align="center"></el-table-column>
+                    <el-table-column prop="schemaid_list" label="元数据列表" align="center"></el-table-column>
                     <el-table-column label="操作">
                         <template scope="scope">
                             <i class="el-icon-edit edit-btn" @click="handleEdit(flag, scope.row)"></i>
@@ -86,7 +86,8 @@
                     <el-table-column prop="exclude" label=" 排除字符串"></el-table-column>
                     <el-table-column prop="area" label="链接采集区域" width="350px"></el-table-column>
                     <el-table-column prop="pageid" label="模板ID" align="center"></el-table-column>
-                    <el-table-column prop="extractor_list" label="抽取器列表"></el-table-column>
+                    <el-table-column prop="exp_type" label="表达式类型"></el-table-column>
+                    <el-table-column prop="expression" label="抽取表达式"></el-table-column>
                     <el-table-column prop="type" label="字段类型" align="center"></el-table-column>
                     <el-table-column prop="spider_name" label="爬虫类型" align="center"></el-table-column>
                     <el-table-column label="操作">
@@ -160,7 +161,7 @@ if (debug) {
 
 }
 
-const ROOT_URL = 'http://111.22.333.44:5555';
+const ROOT_URL = 'http://186.21.520.88:5555';
 const GLOBAL_URL = {
     table_list: `${ROOT_URL}/api/spider/template/list`,
     spider_list: `${ROOT_URL}/api/spider/type/list`

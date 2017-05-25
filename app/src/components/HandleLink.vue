@@ -2,7 +2,7 @@
     <div>
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/Link' }">链接列表</el-breadcrumb-item>
-            <el-breadcrumb-item>{{ this.$route.query.type === 'add' ? '新增链接' : '编辑链接' }}</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ flag === 'add' ? '新增链接' : '编辑链接' }}</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="form-wrap">
             <el-form ref="form" :model="form" label-width="120px">
@@ -22,12 +22,12 @@
                     <el-input type="textarea" :rows="3" v-model="form.area" placeholder="请填写表链接采集区域"></el-input>
                 </el-form-item>
                 <el-form-item label="表达式类型">
-                    <el-select clearable filterable v-model="form.type" placeholder="请选择表达式类型">
+                    <el-select clearable filterable v-model="form.exp_type" placeholder="请选择表达式类型">
                         <el-option v-for="(value, key, index) in extractor_type_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="抽取表达式">
-                    <el-input v-model="form.extractor_list" placeholder="请填写抽取表达式"></el-input>
+                    <el-input v-model="form.expression" placeholder="请填写抽取表达式"></el-input>
                 </el-form-item>
                 <el-form-item label="爬虫类型">
                     <el-select clearable filterable v-model="form.spider_type" placeholder="请选择爬虫类型">
@@ -43,11 +43,12 @@
     </div>
 </template>
 <script>
-const ROOT_URL = 'http://111.22.333.44:5555';
+const ROOT_URL = 'http://186.21.520.88:5555';
 const GLOBAL_URL = {
     extractor_type_list: `${ROOT_URL}/api/spider/extractor/type/list`,
     spider_list: `${ROOT_URL}/api/spider/type/list`,
-    submit: `${ROOT_URL}/api/spider/seed/update`
+    submit_create: `${ROOT_URL}/api/spider/template/create?type=Link`,
+    submit_edit: `${ROOT_URL}/api/spider/template/update?type=Link`
 }
 
 export default {
@@ -60,12 +61,14 @@ export default {
                 exclude: '',
                 pageid: '',
                 area: '',
+                expression: '',
                 extractor_list: '',
                 spider_type: '',
-                type: ''
+                exp_type: ''
             },
             extractor_type_list: {},
-            spider_list: {}
+            spider_list: {},
+            flag: this.$route.query.type
         }
     },
     created() {
@@ -93,19 +96,17 @@ export default {
             })
         },
         renderPage() {
-            let type = this.$route.query.type;
-            let data = this.$route.query.data;
             // 判断是否是编辑页面
-            if (type === 'edit') {
-                let pData = JSON.parse(data);
+            if (this.flag === 'edit') {
+                let pData = JSON.parse(this.$route.query.data);
+                delete pData.spider_name;
                 this.form = pData;
             }
         },
         onSubmit() {
             let postData = JSON.parse(JSON.stringify(this.form))
-            this.$http.post(GLOBAL_URL.submit, {
-                params: postData
-            }).then(res => {
+            let postURL = this.flag === 'edit' ? GLOBAL_URL.submit_edit : GLOBAL_URL.submit_create
+            this.$http.post(postURL, postData).then(res => {
                 if (res.body.msg === 'Success') {
                     this.$message.success('编辑成功！');
                     this.goBack();

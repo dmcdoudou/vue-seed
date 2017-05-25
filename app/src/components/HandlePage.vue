@@ -2,7 +2,7 @@
     <div>
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/Page' }">模板列表</el-breadcrumb-item>
-            <el-breadcrumb-item>{{ this.$route.query.type === 'add' ? '新增模板' : '编辑模板' }}</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ flag === 'add' ? '新增模板' : '编辑模板' }}</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="form-wrap">
             <el-form ref="form" :model="form" label-width="120px">
@@ -43,11 +43,12 @@
     </div>
 </template>
 <script>
-const ROOT_URL = 'http://111.22.333.44:5555';
+const ROOT_URL = 'http://186.21.520.88:5555';
 const GLOBAL_URL = {
     downloader_list: `${ROOT_URL}/api/spider/download/type`,
     spider_list: `${ROOT_URL}/api/spider/type/list`,
-    submit: `${ROOT_URL}/api/spider/seed/update`
+    submit_create: `${ROOT_URL}/api/spider/template/create?type=Page`,
+    submit_edit: `${ROOT_URL}/api/spider/template/update?type=Page`
 }
 
 export default {
@@ -65,7 +66,8 @@ export default {
                 spider_type: ''
             },
             downloader_list: {},
-            spider_list: {}
+            spider_list: {},
+            flag: this.$route.query.type
         }
     },
     created() {
@@ -93,19 +95,18 @@ export default {
             })
         },
         renderPage() {
-            let type = this.$route.query.type;
-            let data = this.$route.query.data;
             // 判断是否是编辑页面
-            if (type === 'edit') {
-                let pData = JSON.parse(data);
+            if (this.flag === 'edit') {
+                let pData = JSON.parse(this.$route.query.data);
+                delete pData.downloader_type_name;
+                delete pData.spider_name;
                 this.form = pData;
             }
         },
         onSubmit() {
             let postData = JSON.parse(JSON.stringify(this.form))
-            this.$http.post(GLOBAL_URL.submit, {
-                params: postData
-            }).then(res => {
+            let postURL = this.flag === 'edit' ? GLOBAL_URL.submit_edit : GLOBAL_URL.submit_create
+            this.$http.post(postURL, postData).then(res => {
                 if (res.body.msg === 'Success') {
                     this.$message.success('编辑成功！');
                     this.goBack();

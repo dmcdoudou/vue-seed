@@ -2,7 +2,7 @@
     <div>
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/Seeds' }">种子列表</el-breadcrumb-item>
-            <el-breadcrumb-item>{{ this.$route.query.type === 'add' ? '新增种子' : '编辑种子' }}</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ flag === 'add' ? '新增种子' : '编辑种子' }}</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="form-wrap">
             <el-form ref="form" :model="form" label-width="120px">
@@ -39,11 +39,12 @@
     </div>
 </template>
 <script>
-const ROOT_URL = 'http://111.22.333.44:5555';
+const ROOT_URL = 'http://186.21.520.88:5555';
 const GLOBAL_URL = {
     parse_list: `${ROOT_URL}/api/spider/seed/parse`,
     spider_list: `${ROOT_URL}/api/spider/type/list`,
-    submit: `${ROOT_URL}/api/spider/seed/update`
+    submit_create: `${ROOT_URL}/api/spider/template/create?type=Seeds`,
+    submit_edit: `${ROOT_URL}/api/spider/template/update?type=Seeds`
 }
 
 export default {
@@ -59,7 +60,8 @@ export default {
                 status: true,
             },
             parse_list: {},
-            spider_list: {}
+            spider_list: {},
+            flag: this.$route.query.type
         }
     },
     created() {
@@ -87,21 +89,21 @@ export default {
             })
         },
         renderPage() {
-            let data = this.$route.query.data;
-            // 如果URL中有data数据，则是编辑页面
-            if (data) {
-                let pData = JSON.parse(data);
+            // 判断是否是编辑页面
+            if (this.flag === 'edit') {
+                let pData = JSON.parse(this.$route.query.data);
                 // 这是一个坑，文档里说开关的Model的类型只能是布尔型
                 pData.status = pData.status === 1 ? true : false
+                delete pData.parse_name;
+                delete pData.spider_name;
                 this.form = pData;
             }
         },
         onSubmit() {
             let postData = JSON.parse(JSON.stringify(this.form))
             postData.status = postData.status === true ? 1 : 0
-            this.$http.post(GLOBAL_URL.submit, {
-                params: postData
-            }).then(res => {
+            let postURL = this.flag === 'edit' ? GLOBAL_URL.submit_edit : GLOBAL_URL.submit_create
+            this.$http.post(postURL, postData).then(res => {
                 if (res.body.msg === 'Success') {
                     this.$message.success('编辑成功！');
                     this.goBack();

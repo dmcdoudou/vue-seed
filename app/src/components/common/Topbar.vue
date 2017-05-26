@@ -1,10 +1,10 @@
 <template>
     <div id="topbar-wrap">
         <el-row>
-            <el-col :span="3" class="logo">
-                网络信息采集系统
+            <el-col :span="4" class="logo">
+                <i class="fa fa-car"></i>&nbsp;&nbsp;网络信息采集系统
             </el-col>
-            <el-col :span="15" :offset="1" class="sen">
+            <el-col :span="15" class="sen">
                 <el-menu theme="dark" :default-active="nowPath" :unique-opened="isUnique" :router="isRouter" mode="horizontal">
                     <el-menu-item index="/Seeds">种子管理</el-menu-item>
                     <el-menu-item index="/Page">模板管理</el-menu-item>
@@ -13,8 +13,9 @@
                     <el-menu-item index="/weather">天气预报【5毛/月】</el-menu-item>
                 </el-menu>
             </el-col>
-            <el-col :span="3" class="animated fadeInDown">
-                您好, <span class="name">{{userName}}</span>
+            <el-col :span="3">
+                <i class="fa fa-bell animated shake"></i>
+                <span class="name">{{info}}</span>
             </el-col>
             <el-col :span="2">
                 <a href="" @click.prevent="open" class="logout">
@@ -29,7 +30,6 @@ export default {
     name: 'topbar',
     data() {
         return {
-            userName: '董事长',
             isUnique: true,
             isRouter: true,
             nowPath: this.$route.path
@@ -42,6 +42,19 @@ export default {
                 message: '你没登陆，为啥要退出呢？',
                 type: 'warning'
             });
+        }
+    },
+    computed: {
+        info() {
+            let now = new Date()
+            let hour = now.getHours()
+            if (hour < 12) {
+                return "上午好"
+            } else if (hour < 14) {
+                return "中午好"
+            } else {
+                return "下午好"
+            }
         }
     }
 }
@@ -64,7 +77,6 @@ export default {
     }
     .name {
         line-height: 60px;
-        color: #20a0ff;
         font-weight: 600;
     }
     a {
@@ -76,7 +88,7 @@ export default {
         }
     }
     i {
-        vertical-align: middle;
+        vertical-align: text-bottom;
         font-size: 20px;
     }
     .logout {

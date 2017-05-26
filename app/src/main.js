@@ -57,7 +57,8 @@ Vue.prototype.$message = Message
 // Vue 的全局配置
 Vue.config.productionTip = false
 
-// vue-resource的全局拦截器
+// vue-resource的全局设置
+Vue.http.options.root = 'http://172.20.207.39:5000/api/spider';
 // Vue.http.interceptors.push(function(request, next) {
 //   // 修改方法
 //   // request.method = 'post';

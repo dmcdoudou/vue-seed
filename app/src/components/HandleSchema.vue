@@ -99,15 +99,15 @@ if (debug) {
         status: "YQ-000"
     })
 }
-const ROOT_URL = 'http://188.20.207.99:5000';
+
 const GLOBAL_URL = {
-    edit_page_data: `${ROOT_URL}/api/spider/field/list/select`,
-    extractor_type_list: `${ROOT_URL}/api/spider/extractor/type/list`,
-    filter_type_list: `${ROOT_URL}/api/spider/extractor/filter/type/list`,
-    sys_filed_list: `${ROOT_URL}/api/spider/system/field/list`,
-    spider_list: `${ROOT_URL}/api/spider/type/list`,
-    submit_create: `${ROOT_URL}/api/spider/template/create?type=Schema`,
-    submit_edit: `${ROOT_URL}/api/spider/template/update?type=Schema`
+    edit_page_data: `field/list/select`,
+    extractor_type_list: `extractor/type/list`,
+    filter_type_list: `extractor/filter/type/list`,
+    sys_filed_list: `system/field/list`,
+    spider_list: `type/list`,
+    submit_create: `template/create?type=Schema`,
+    submit_edit: `template/update?type=Schema`
 }
 let sysList = {}
 import goup from './common/GoUp'
@@ -241,14 +241,14 @@ export default {
         onSubmit() {
             let data = this.getPostData();
             let postURL = this.flag === 'edit' ? GLOBAL_URL.submit_edit : GLOBAL_URL.submit_create
-            this.$http.post(postURL, data).then(res => {
-                if (res.body.msg === 'Success') {
-                    this.$message.success('编辑成功！');
-                    this.goBack();
-                }
-            }, res => {
-                this.$message.error('网络错误，请稍后重试');
-            })
+            // this.$http.post(postURL, data).then(res => {
+            //     if (res.body.msg === 'Success') {
+            //         this.$message.success('编辑成功！');
+            //         this.goBack();
+            //     }
+            // }, res => {
+            //     this.$message.error('网络错误，请稍后重试');
+            // })
         },
         getPostData() {
             let postData = JSON.parse(JSON.stringify(this.form))
@@ -264,6 +264,7 @@ export default {
             this.cut_sel_arr.forEach((v,i) => {
                 postData.data.push(v)
             })
+            console.log(postData)
             return postData
         },
         goBack() {

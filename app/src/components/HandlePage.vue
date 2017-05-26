@@ -43,12 +43,12 @@
     </div>
 </template>
 <script>
-const ROOT_URL = 'http://188.20.207.99:5000';
+
 const GLOBAL_URL = {
-    downloader_list: `${ROOT_URL}/api/spider/download/type`,
-    spider_list: `${ROOT_URL}/api/spider/type/list`,
-    submit_create: `${ROOT_URL}/api/spider/template/create?type=Page`,
-    submit_edit: `${ROOT_URL}/api/spider/template/update?type=Page`
+    downloader_list: `download/type`,
+    spider_list: `type/list`,
+    submit_create: `template/create?type=Page`,
+    submit_edit: `template/update?type=Page`
 }
 
 export default {

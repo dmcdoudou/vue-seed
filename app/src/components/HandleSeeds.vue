@@ -39,12 +39,12 @@
     </div>
 </template>
 <script>
-const ROOT_URL = 'http://188.20.207.99:5000';
+
 const GLOBAL_URL = {
-    parse_list: `${ROOT_URL}/api/spider/seed/parse`,
-    spider_list: `${ROOT_URL}/api/spider/type/list`,
-    submit_create: `${ROOT_URL}/api/spider/template/create?type=Seeds`,
-    submit_edit: `${ROOT_URL}/api/spider/template/update?type=Seeds`
+    parse_list: `seed/parse`,
+    spider_list: `type/list`,
+    submit_create: `template/create?type=Seeds`,
+    submit_edit: `template/update?type=Seeds`
 }
 
 export default {

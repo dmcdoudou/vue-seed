@@ -161,7 +161,7 @@ if (debug) {
 
 }
 
-const ROOT_URL = 'http://186.21.520.88:5555';
+const ROOT_URL = 'http://188.20.207.99:5000';
 const GLOBAL_URL = {
     table_list: `${ROOT_URL}/api/spider/template/list`,
     spider_list: `${ROOT_URL}/api/spider/type/list`

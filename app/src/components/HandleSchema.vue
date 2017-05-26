@@ -20,7 +20,6 @@
                         <el-option v-for="(value, key, index) in spider_list" :label="key" :value="value" :key="index"></el-option>
                     </el-select>
                 </el-form-item>
-
                 <!-- 系统字段区域 -->
                 <el-form-item label="系统字段">
                     <div v-for="(value, index) in sys_sel_arr" class="sys-wrap">
@@ -28,36 +27,34 @@
                         <i class="el-icon-delete delBtn1" @click="delSysFiled(index)"></i>
                     </div>
                 </el-form-item>
-
                 <!-- 自定义字段区域 -->
                 <el-form-item label="自定义字段">
                     <div v-for="(obj, index) in cut_sel_arr" class="cut-wrap" :key="index">
                         <el-form-item class="row-inner" label="字段序号：">
-                            <el-input v-model="obj.a" placeholder="请填写字段序号" style="width:70%"></el-input>
+                            <el-input v-model="obj.id" placeholder="请填写字段序号" style="width:70%" disabled></el-input>
                         </el-form-item>
                         <el-form-item class="row-inner" label="字段名称：">
-                            <el-input v-model="obj.a" placeholder="请填写字段名称" style="width:70%"></el-input>
+                            <el-input v-model="obj.name" placeholder="请填写字段名称" style="width:70%"></el-input>
                         </el-form-item>
                         <el-form-item class="row-inner" label="表达式类型：">
-                            <el-select clearable filterable v-model="obj.a" placeholder="请选择表达式类型" style="width:70%">
+                            <el-select clearable filterable v-model="obj.exp_type" placeholder="请选择表达式类型" style="width:70%">
                                 <el-option v-for="(value, key, index) in extractor_type_list" :label="key" :value="value" :key="index"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item class="row-inner" label="抽取表达式：">
-                            <el-input v-model="obj.a" placeholder="请填写抽取表达式" style="width:70%"></el-input>
+                            <el-input v-model="obj.expression" placeholder="请填写抽取表达式" style="width:70%"></el-input>
                         </el-form-item>
                         <el-form-item class="row-inner" label="数据处理类型：">
-                            <el-select clearable filterable v-model="obj.a" placeholder="请选择数据处理类型" style="width:70%">
+                            <el-select clearable filterable v-model="obj.filter_type" placeholder="请选择数据处理类型" style="width:70%">
                                 <el-option v-for="(value, key, index) in filter_type_list" :label="key" :value="value" :key="index"></el-option>
                             </el-select>
                         </el-form-item>
                         <el-form-item class="row-inner" label="处理表达式：">
-                            <el-input v-model="obj.a" placeholder="请填写数据处理表达式" style="width:70%"></el-input>
+                            <el-input v-model="obj.filter_expression" placeholder="请填写数据处理表达式" style="width:70%"></el-input>
                         </el-form-item>
                         <i class="el-icon-delete delBtn2" @click="delCutFiled(index)"></i>
                     </div>
                 </el-form-item>
-
                 <!-- 添加字段区域 -->
                 <el-form-item label="添加字段">
                     <el-select v-model="filed_type" placeholder="请选择字段类型" class="f_type">
@@ -69,7 +66,6 @@
                     </el-select>
                     <el-button type="primary" icon="plus" @click.prevent="addFiled"></el-button>
                 </el-form-item>
-
                 <!-- 提交表单区域 -->
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">提交</el-button>
@@ -81,8 +77,31 @@
     </div>
 </template>
 <script>
-const ROOT_URL = 'http://186.21.520.88:5555';
+import Mock from 'mockjs'
+let debug = 0;
+if (debug) {
+    Mock.mock(/select/, {
+        "data|5": [{
+            extractor_type: 2,
+            extractor_type_name: "custom",
+            extractors: "3",
+            filter_type_name: null,
+            id: 12,
+            name: "brand_name",
+            exp_type: 1,
+            expression: "//div[contains(@class, \"sub-list\")]//a[contains(@class, \"subBrand\")]/@href",
+            filter_type: 0,
+            filter_expression: null,
+            type: 1,
+            type_name: "string"
+        }],
+        msg: "Success",
+        status: "YQ-000"
+    })
+}
+const ROOT_URL = 'http://188.20.207.99:5000';
 const GLOBAL_URL = {
+    edit_page_data: `${ROOT_URL}/api/spider/field/list/select`,
     extractor_type_list: `${ROOT_URL}/api/spider/extractor/type/list`,
     filter_type_list: `${ROOT_URL}/api/spider/extractor/filter/type/list`,
     sys_filed_list: `${ROOT_URL}/api/spider/system/field/list`,
@@ -162,12 +181,39 @@ export default {
                 this.$message.error('网络错误，爬虫类型列表获取失败');
             })
         },
+        getEditData(data) {
+            this.$http.post(GLOBAL_URL.edit_page_data, {
+                field_list: data
+            }).then(res => {
+                if (res.body.msg === 'Success') {
+                    this.renderSysList(res.body.data)
+                    this.renderCutList(res.body.data)
+                }
+            }, res => {
+                this.$message.error('网络错误，字段列表列表获取失败');
+            })
+        },
+        renderSysList(arr) {
+            arr.forEach((obj, i) => {
+                if (obj.extractor_type_name === 'system') {
+                    this.sys_sel_arr.push(obj.id)
+                }
+            })
+        },
+        renderCutList(arr) {
+            arr.forEach((obj, i) => {
+                if (obj.extractor_type_name === 'custom') {
+                    this.cut_sel_arr.push(obj)
+                }
+            })
+        },
         renderPage() {
             // 判断是否是编辑页面
             if (this.flag === 'edit') {
                 let pData = JSON.parse(this.$route.query.data);
                 delete pData.spider_name;
                 this.form = pData;
+                this.getEditData(pData.columns)
             }
         },
         addFiled() {
@@ -175,9 +221,12 @@ export default {
                 this.sys_sel_arr.push(this.sys_filed_value)
             } else {
                 this.cut_sel_arr.push({
-                    a: '',
-                    b: '',
-                    c: ''
+                    id: '',
+                    name: '',
+                    exp_type: '',
+                    expression: '',
+                    filter_type: '',
+                    filter_expression: ''
                 })
             }
         },
@@ -190,9 +239,9 @@ export default {
             this.cut_sel_arr.splice(index, 1)
         },
         onSubmit() {
-            let postData = JSON.parse(JSON.stringify(this.form))
+            let data = this.getPostData();
             let postURL = this.flag === 'edit' ? GLOBAL_URL.submit_edit : GLOBAL_URL.submit_create
-            this.$http.post(postURL, postData).then(res => {
+            this.$http.post(postURL, data).then(res => {
                 if (res.body.msg === 'Success') {
                     this.$message.success('编辑成功！');
                     this.goBack();
@@ -200,6 +249,22 @@ export default {
             }, res => {
                 this.$message.error('网络错误，请稍后重试');
             })
+        },
+        getPostData() {
+            let postData = JSON.parse(JSON.stringify(this.form))
+            delete postData.columns
+            postData.data = [];
+            this.sys_sel_arr.forEach((v,i) => {
+                postData.data.push( {
+                    id:v,
+                    extractor_type: 1,
+                    extractor_type_name:"system"
+                })
+            })
+            this.cut_sel_arr.forEach((v,i) => {
+                postData.data.push(v)
+            })
+            return postData
         },
         goBack() {
             this.$router.push('Schema')
@@ -267,5 +332,4 @@ export default {
         }
     }
 }
-
 </style>

@@ -120,7 +120,7 @@
 </template>
 <script>
 import Mock from 'mockjs'
-let debug = 0;
+let debug = 1;
 if (debug) {
     Mock.mock(/api\/spider\/type\/list/, {
         data: {
@@ -136,27 +136,80 @@ if (debug) {
         msg: "Success",
         status: "YQ-000"
     })
-    Mock.mock(/api\/spider\/template\/list/, {
-        "data": {
-            "conf": {
-                "page_index": 1,
-                "page_size": 10,
-                "total_num": 185,
-                "total_page": 19
-            },
-            "list|10": [{
-                "id": 1,
-                "key": "http://www.qctsw.com/tousu/doTousu_search",
-                "pageid": 2,
-                "parse_name": "URL",
-                "parser": 1,
-                "spider_name": "news",
-                "spider_type": 1,
-                "status": 1
-            }]
-        },
-        "msg": "Success",
-        "status": "YQ-000"
+
+    // 只能自己模拟假数据
+    Mock.mock(/api\/spider\/template\/list/, (options) => {
+        let params = JSON.parse(options.body)
+        let type = params.type;
+        let page_index = params.page_index;
+        let page_size = params.page_size;
+        let total_num = 200;
+        let list = [];
+        for (let i = 1; i <= page_size; i++) {
+            if (type === 'Seeds') {
+                list.push({
+                    id: 1,
+                    key: "http://www.qctsw.com/tousu/doTousu_search",
+                    pageid: 2,
+                    parse_name: "URL",
+                    parser: 1,
+                    spider_name: "news",
+                    spider_type: 1,
+                    status: 1
+                })
+            } else if (type === 'Page') {
+                list.push({
+                    demo_url: 'http://www.qctsw.com/tousu/doTousu_search',
+                    downloader_type: 0,
+                    downloader_type_name: "default",
+                    id: 1,
+                    js_text: null,
+                    linkid_list: "1",
+                    name: '白总',
+                    schemaid_list: "1",
+                    spider_name: "news",
+                    spider_type: 1
+                })
+            } else if (type === 'Link') {
+                list.push({
+                    area: '//div[@class="listcon"]/ul//li/a/@href',
+                    exclude: 'abc',
+                    exp_type: null,
+                    expression: null,
+                    extractor_list: null,
+                    filter: 1,
+                    id: 1,
+                    include: 'sdfre',
+                    pageid: 1,
+                    spider_name: "news",
+                    spider_type: 1,
+                    type: 1
+                })
+            } else if (type === 'Schema') {
+                list.push({
+                    area: '//div[@class="listcon"]/ul//li/a/@href',
+                    columns: "1,2,3,4,5,6,7,8,9,10, 11",
+                    id: 1,
+                    spider_name: "news",
+                    spider_type: 1,
+                    table_name: "newsv1"
+                })
+            }
+        }
+        let obj = {
+            msg: 'Success',
+            status: 'YQ-000',
+            data: {
+                conf: {
+                    page_index: page_index,
+                    page_size: page_size,
+                    total_num: total_num
+                },
+                list: list
+            }
+        }
+        return obj
+
     })
 
 }
@@ -204,15 +257,14 @@ export default {
                 f_name = ''
             }
 
-            this.$http.get(GLOBAL_URL.table_list, {
-                params: {
-                    type: this.flag,
-                    spider_type: this.SelVal,
-                    Field_name: f_name,
-                    value: this.keywords,
-                    page_index: this.currentPage,
-                    page_size: this.pageSize
-                }
+            // 自己模拟数据，改成了POST方法
+            this.$http.post(GLOBAL_URL.table_list, {
+                type: this.flag,
+                spider_type: this.SelVal,
+                Field_name: f_name,
+                value: this.keywords,
+                page_index: this.currentPage,
+                page_size: this.pageSize
             }).then(res => {
                 this.tableData = res.body.data.list;
                 this.currentPage = res.body.data.conf.page_index;

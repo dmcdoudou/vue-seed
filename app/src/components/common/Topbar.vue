@@ -32,7 +32,7 @@ export default {
         return {
             isUnique: true,
             isRouter: true,
-            nowPath: this.$route.path
+            nowPath: ''
         }
     },
     methods: {
@@ -55,6 +55,11 @@ export default {
             } else {
                 return "下午好"
             }
+        }
+    },
+    watch: {
+        '$route'(to, from) {
+            this.nowPath = this.$route.path
         }
     }
 }
